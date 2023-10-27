@@ -1,45 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+class AuthService {
+  // Google sign in
+  signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn(); // Use signIn
 
-import 'package:yatra1/services/auths/auth_provider.dart';
-import 'package:yatra1/services/auths/auth_user.dart';
-import 'package:yatra1/services/auths/firebase_auth_provider.dart';
+      if (gUser == null) {
+        // The user canceled the sign-in process
+        return null;
+      }
 
-class AuthService implements AuthProvider{
-  final AuthProvider provider;
-  const AuthService(this.provider);
-  factory AuthService.firebase()=> AuthService(FireBaseAuthProvider());
+      // Obtain auth details from request
+      final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
-  @override
-  Future<AuthUser> createUser({
-    required String email, 
-    required String password,
-    }) =>
-    provider.createUser(
-      email: email, 
-      password: password,
+      // Obtain a new credential for the user
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
       );
-  
-  @override
 
-  AuthUser? get currentUser => provider.currentUser;
-  
-  @override
-  Future<void> logOut() =>provider.logOut();
-  
-  @override
-  Future<AuthUser> login({
-    required String email,
-     required String passsword,
-     }) =>
-     provider.login(email: email, 
-     passsword: passsword,
-     );
-  @override
-  Future<void> sendEmailverification() => provider.sendEmailverification();
-  
-  @override
-  Future<void> initializeApp()=>
-  provider.initializeApp();
-
-  logIn({required String email, required String password}) {}
+      // Finally, let's sign in
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (error) {
+      print("Error signing in with Google: $error");
+      return null;
+    }
+  }
 }

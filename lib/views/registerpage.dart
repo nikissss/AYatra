@@ -6,20 +6,20 @@ import 'package:yatra1/components/mybutton.dart';
 import 'package:yatra1/components/mytextfield.dart';
 import 'package:yatra1/components/squaretile.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
-import 'package:yatra1/views/forget_passwordpage.dart';
 
-class Loginpage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
 
   final Function()? onTap;
   final BuildContext context;
-const  Loginpage({super.key, required this.onTap, required this.context});
+ const RegisterPage({super.key, required this.onTap, required this.context});
+ 
 
   //text editing controllers
  static TextEditingController emailController = TextEditingController();
 static TextEditingController passwordController = TextEditingController();
-
+static TextEditingController confirmpasswordController = TextEditingController();
 //sign user in method
-void signUserIn(BuildContext context)async{
+void signUserUp() async{
 //show loading circle
 
 showDialog(
@@ -31,11 +31,19 @@ showDialog(
   },
 );
 
- //try sign in
-  try{await FirebaseAuth.instance.signInWithEmailAndPassword(
+ //try creating the user
+  try{
+    //check if password is confirmed 
+    if(passwordController.text == confirmpasswordController.text){
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: emailController.text, 
     password: passwordController.text,
     );
+    }else {
+      //show error message password dont match
+      showErrorMessage("Passwords don't match ");
+
+    }
         //pop the loading circle
     Navigator.pop(context);
 
@@ -76,11 +84,15 @@ void wrongPasswordMessage(){
     },
     );
 }
+
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<StatefulWidget> createState() {
+ return _RegisterPageState();
+  }
+ 
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _RegisterPageState extends State<RegisterPage> {
   get signUserIn => null;
 
   @override
@@ -99,11 +111,11 @@ class _LoginpageState extends State<Loginpage> {
                 //logo
                 const  Icon(
                   Icons.lock,
-                size:100,
+                size:50,
                 ),
                 const SizedBox(height:50),
-                //welcome back,you've been missed!
-                const Text("Welcome back!",
+                //Create your Account!
+                const Text("Let's Create an Account!",
                 style:TextStyle(
                   color: Color(0xFF616161), // Replace with the appropriate color code
                 fontSize: 16,
@@ -115,7 +127,7 @@ class _LoginpageState extends State<Loginpage> {
                 //email textfield
                 
                 mytextfield(
-                  controller:Loginpage.emailController,
+                  controller:RegisterPage.emailController,
                   hintText: 'email',
                   obscureText:false ,
                 
@@ -125,9 +137,18 @@ class _LoginpageState extends State<Loginpage> {
                 //password textfield
                 
                 mytextfield(
-                  controller:Loginpage.passwordController,
+                  controller:RegisterPage.passwordController,
                   obscureText: true,
                   hintText: 'Password',
+                ),
+                    const SizedBox(height:10),
+                
+                //confirm password textfield
+                
+                mytextfield(
+                  controller:RegisterPage.confirmpasswordController,
+                  obscureText: true,
+                  hintText: 'Confirm Password',
                 ),
                 const SizedBox(height:10),
                 
@@ -137,36 +158,19 @@ class _LoginpageState extends State<Loginpage> {
                   child:   Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-              GestureDetector(
-                onTap: (){
-                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context){
-            return const ForgotPasswordPage();
-                  },
-                  ),
-                   ) ;
-                },
-                child: const Text(
-                        'Forget Password?',
-                        style:
-                        TextStyle(
-                    color:Colors.blue,
-                    fontWeight: FontWeight.bold
+              Text(
+                      'Forget Password?',
+                      style:TextStyle(color:Colors.grey[600]),
                     ),
-                      ),
-              ),
                   ],
                   ),
                 ),
                 const SizedBox(height:10),
                 //signin button
-               MyButton(
-                text:'Sign In',
-              onTap: () => widget.signUserIn(context),
-            ),
-            
+                MyButton(
+                  text:"SignUp",
+                  onTap:widget.signUserUp,
+                ),
                 const SizedBox(height:50),
                 //or continue with
                 
@@ -198,7 +202,7 @@ class _LoginpageState extends State<Loginpage> {
                 ),
                 const SizedBox(height:50),
                 //google + apple sign in button
-               Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                   //google button
@@ -218,7 +222,7 @@ class _LoginpageState extends State<Loginpage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                Text('Not a member?',
+                Text('Already have an account!',
                 style:TextStyle(
                   color:Colors.grey[700]
                 )),
@@ -226,12 +230,11 @@ class _LoginpageState extends State<Loginpage> {
                  GestureDetector(
                   onTap: widget.onTap,
                    child: const Text(
-                    'Register now',
+                    'Login now',
                     style:TextStyle(
                     color:Colors.blue,
                     fontWeight: FontWeight.bold
-                    ),
-                    ),
+                    ),),
                  ),
                 ],)
                       ],
