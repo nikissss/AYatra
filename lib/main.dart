@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:yatra1/screens/bottom_bar.dart';
+import 'package:yatra1/utilis/app_styles.dart';
 import 'package:yatra1/views/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:yatra1/firebase_options.dart';
+import 'package:yatra1/views/login_page.dart';
+import 'package:yatra1/views/registerpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+     title: 'Flutter Demo',
       theme: ThemeData(
-       
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+       primaryColor: primary,
         useMaterial3: true,
       ),
-      home:const AuthPage(),
+      home:const BottomBar(),
     );
   }
 }
