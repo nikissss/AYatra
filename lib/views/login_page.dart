@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:yatra1/components/mybutton.dart';
 import 'package:yatra1/components/mytextfield.dart';
 import 'package:yatra1/components/squaretile.dart';
+import 'package:yatra1/screens/homescreen.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
 import 'package:yatra1/views/forget_passwordpage.dart';
+
 
 class Loginpage extends StatefulWidget {
 
@@ -17,6 +19,18 @@ const  Loginpage({super.key, required this.onTap, required this.context});
   //text editing controllers
  static TextEditingController emailController = TextEditingController();
 static TextEditingController passwordController = TextEditingController();
+
+void navigateToHomePage(BuildContext context) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        // Replace 'HomePage' with the actual name of your home page widget
+        return const HomeScreen();
+      },
+    ),
+  );
+}
 
 //sign user in method
 void signUserIn(BuildContext context)async{
@@ -38,6 +52,9 @@ showDialog(
     );
         //pop the loading circle
     Navigator.pop(context);
+
+    // Navigate to the home page on successful sign-in
+    navigateToHomePage(context);
 
   }on FirebaseAuthException catch (e){
         //pop the loading circle
@@ -76,6 +93,13 @@ void wrongPasswordMessage(){
     },
     );
 }
+void registeredusermessage(){
+  showAboutDialog(
+    context: context,
+  
+  );
+}
+
   @override
   State<Loginpage> createState() => _LoginpageState();
 }
@@ -204,12 +228,12 @@ class _LoginpageState extends State<Loginpage> {
                   //google button
                 SquareTile(
                   onTap: () => AuthService().signInWithGoogle(),
-                  imagePath: 'lib/img/g2.png'),
+                  imagePath: 'lib/images/g2.png'),
                 const SizedBox(width:25),
                 //apple button
                 SquareTile(
                   onTap: () {},
-                  imagePath: 'lib/img/a4.png')
+                  imagePath: 'lib/images/a4.png')
                 ],
                 ),
                 const SizedBox(height:50),

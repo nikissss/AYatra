@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yatra1/views/home_page.dart';
 import 'package:yatra1/views/login_page.dart';
 import 'package:yatra1/views/registerpage.dart';
 
@@ -31,6 +32,7 @@ setState(() {
     return RegisterPage(
       onTap: togglePages, context: context,
     );
-   }
+   
+    }
   }
 }

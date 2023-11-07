@@ -7,7 +7,7 @@ HomePage({super.key});
 
 final user= FirebaseAuth.instance.currentUser!;
 
-  
+ 
  // sign user out method
  void signUserOut(){
   FirebaseAuth.instance.signOut();
