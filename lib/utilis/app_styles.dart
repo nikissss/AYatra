@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color primary = const Color(0xFF687daf);
+const String apiKey= 'AIzaSyBc-YkwrnJuaTY5YF7sb4QDbm1pXCiGDzo';
 class Styles{
   static Color primaryColor = primary;
   static Color textColor =  const Color(0xFF3b3b3b);

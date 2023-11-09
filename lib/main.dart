@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yatra1/screens/bottom_bar.dart';
 import 'package:yatra1/screens/homescreen.dart';
+
 import 'package:yatra1/utilis/app_styles.dart';
 import 'package:yatra1/views/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Get.put(LocationController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
      title: 'Flutter Demo',
@@ -41,3 +43,5 @@ class MyApp extends StatelessWidget {
   onTap() {
   }
 }
+
+
