@@ -1,3 +1,5 @@
+import 'package:yatra1/utilis/Des-Model.dart';
+
 List<Map<String, dynamic>> hotelList = [
   {
     'image': 'one.png',
@@ -48,4 +50,32 @@ List<Map<String, dynamic>> ticketList = [
     'departure_time':"09:00 AM",
     "number":45
   },
+];
+
+
+List<DesModel> DestinationList = [
+  DesModel(
+title:'London', 
+image: '',
+  ),
+DesModel(
+title:'Paris',
+image:'',
+),
+DesModel(
+title:'Italy',
+image:'',
+),
+DesModel(
+title:'Switzerland',
+image:'',
+),
+DesModel(
+title:'Maldives',
+image:'',
+),
+DesModel(
+title:'Dubai',
+image:'',
+),
 ];

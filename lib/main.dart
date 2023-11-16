@@ -1,4 +1,8 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:yatra1/location/locationsearch.dart';
+import 'package:yatra1/location/search.dart';
 import 'package:yatra1/screens/bottom_bar.dart';
 import 'package:yatra1/screens/homescreen.dart';
 
@@ -22,6 +26,12 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+//   Positioned(
+//   key: UniqueKey(), // Use UniqueKey to ensure each Positioned has a unique identity
+//   // other properties of Positioned...
+// )
+
+  
 
   // This widget is the root of your application.
   @override
@@ -34,7 +44,7 @@ class MyApp extends StatelessWidget {
        primaryColor: primary,
         useMaterial3: true,
       ),
-      home:const HomeScreen(),
+      home: HomeScreen(),
       // Loginpage(onTap: onTap, context: context),
 
     );

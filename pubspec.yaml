@@ -20,6 +20,8 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
+  
+
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -45,7 +47,7 @@ dependencies:
   firebase_analytics: ^10.4.5
   google_sign_in: ^6.1.5
   google_maps_webservice: ^0.0.20-nullsafety.5
-dev_dependencies:
+# dev_dependencies:
   # flutter_test:
   #  sdk: Flutter
 
@@ -54,10 +56,11 @@ dev_dependencies:
   flutter_typeahead: ^3.1.3
   flutter_google_places: ^0.3.0
   google_maps_flutter: ^2.0.6
-  geocoder: ^0.2.1
   geolocator: ^10.1.0
-  search_map_place: ^0.3.0
-  # google_maps_webservice:
+ 
+  search_map_place_updated: ^0.0.4
+  # geocoder: 
+  # google_maps_webservice: ^1.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

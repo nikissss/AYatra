@@ -26,7 +26,7 @@ void navigateToHomePage(BuildContext context) {
     MaterialPageRoute(
       builder: (context) {
         // Replace 'HomePage' with the actual name of your home page widget
-        return const HomeScreen();
+        return HomeScreen();
       },
     ),
   );

@@ -15,7 +15,7 @@ class _BottomBarState extends State<BottomBar> {
 int _selectedIndex=0;
 
   static final List<Widget>_widgetOptions =  <Widget>[
-HomeScreen(), //homescreen class call gareko
+HomeScreen(),//homescreen class call gareko
 const Text("Search"),
 const Text("Tickets"),
 const Text("Profile"),
