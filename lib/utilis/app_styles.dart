@@ -14,3 +14,6 @@ class Styles{
              static TextStyle headLinestyle3 = TextStyle(fontSize:17, color:textColor,fontWeight:FontWeight.w500);
                     static TextStyle headLinestyle4 = TextStyle(fontSize:14, color:Colors.grey.shade500,fontWeight:FontWeight.w500);
 }
+// des_model.dart
+
+

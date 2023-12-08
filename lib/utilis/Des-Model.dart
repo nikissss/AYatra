@@ -1,6 +1,11 @@
-class DesModel{
+// des_model.dart
+
+class DesModel {
   final String title;
   final String image;
 
-  DesModel({required this.image, required this.title});
+  DesModel({
+    required this.title,
+    required this.image,
+  });
 }

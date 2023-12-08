@@ -127,7 +127,7 @@ class _LoginpageState extends State<Loginpage> {
                 ),
                 const SizedBox(height:50),
                 //welcome back,you've been missed!
-                const Text("Welcome back!",
+                const Text("Book your Yatra here",
                 style:TextStyle(
                   color: Color(0xFF616161), // Replace with the appropriate color code
                 fontSize: 16,
@@ -265,4 +265,6 @@ class _LoginpageState extends State<Loginpage> {
       )
        );
   }
+  
+  AuthService() {}
 }

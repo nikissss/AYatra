@@ -176,6 +176,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yatra1/location/locationsearch.dart';
 import 'package:yatra1/location/search.dart';
+import 'package:yatra1/screens/hotelbookscreen.dart';
 
 import 'package:yatra1/screens/hotelscreen.dart';
 import 'package:yatra1/screens/ticketview.dart';
@@ -514,6 +515,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+   final TextEditingController _searchController = TextEditingController();
+   final TextEditingController _datecontroller = TextEditingController();
+   
   @override
   void initState() {
     super.initState();
@@ -543,36 +548,47 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
           ),
           Expanded( // Wrap the GestureDetector with Expanded
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Search()),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color(0xFFF4F6FD),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  spreadRadius: 4,
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Search your destination',
-                prefixIcon: Icon(
-                  FluentSystemIcons.ic_fluent_search_regular,
-                  color: Color(0xFFBFC205),
+        child: InkWell(
+          
+           onTap: () {
+  print("Search bar tapped");
+ Navigator.push(
+  context,
+  MaterialPageRoute(
+    // builder: (context) => Search(
+    //   searchController: _searchController,
+    //   dateController: _datecontroller,
+    //   controller: _searchController,
+    // ),
+    builder:(context) => HotelHomeScreen(),
+  ),
+);
+
+},
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color(0xFFF4F6FD),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    spreadRadius: 4,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Search your destination',
+                  prefixIcon: Icon(
+                    FluentSystemIcons.ic_fluent_search_regular,
+                    color: Color(0xFFBFC205),
+                  ),
                 ),
               ),
             ),
-          ),
+         
         ),
           ),
         ],
