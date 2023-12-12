@@ -66,7 +66,7 @@ Future<void> bookNow(HotelListData roomData) async {
 
 
 Future<void> sendBookingConfirmationEmail(String recipientEmail, String hotelName, RoomData? roomData) async {
-  final smtpServer = gmail('pujakadayat1@gmail.com', 'zire chgc uvih tndh');
+  final smtpServer = gmail('your@gmail.com', 'your app password');
 
   // Create the email message
   final message = Message()
