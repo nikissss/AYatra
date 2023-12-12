@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yatra1/appLocalization.dart';
@@ -7,6 +8,9 @@ import 'package:yatra1/utils/text_styles.dart';
 import 'package:yatra1/widgets/commonbutton.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yatra1/components/image_paths.dart' ;
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 class RoomBookView extends StatefulWidget {
   final HotelListData roomData;
@@ -27,29 +31,63 @@ class RoomBookView extends StatefulWidget {
 class _RoomBookViewState extends State<RoomBookView> {
   var pageController = PageController(initialPage: 0);
 
+Future<void> bookNow(HotelListData roomData) async {
+  try {
+    // Get the current user's email from Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+    String? userEmail = user?.email;
 
-  Future<void> bookNow() async {
-    try {
-      // Get the current user's email from Firebase Authentication
-      User? user = FirebaseAuth.instance.currentUser;
-      String? userEmail = user?.email;
+    if (userEmail != null) {
+      // Storing the booking information in Cloud Firestore
+      DocumentReference bookingReference = await FirebaseFirestore.instance.collection('bookings').add({
+        'userEmail': userEmail,
+        'hotelName': roomData.titleTxt,
+        'roomDetails': roomData.roomData?.numberOfRooms, // Assuming roomData is an instance of RoomData
+        'numberOfPeople': roomData.roomData?.numberOfPeople, // Assuming roomData is an instance of RoomData
+        
+      });
 
-      if (userEmail != null) {
-        // Store the booking information in Cloud Firestore
-        await FirebaseFirestore.instance.collection('bookings').add({
-          'userEmail': userEmail,
-          // Add other relevant data
-        });
+      // Sending booking confirmation email
+      await sendBookingConfirmationEmail(userEmail, roomData.titleTxt, roomData.roomData);
 
-        print('Booking successful!');
-        // Consider showing a confirmation message or navigating to another screen.
-      } else {
-        print('User not logged in or email is null.');
-      }
-    } catch (e) {
-      print('Error booking: $e');
+      print('Booking successful!');
+      // Consider showing a confirmation message or navigating to another screen.
+
+      // Optionally, we can get the booking ID from Firestore and use it as needed
+      String bookingId = bookingReference.id;
+      print('Booking ID: $bookingId');
+    } else {
+      print('User not logged in or email is null.');
     }
+  } catch (e) {
+    print('Error booking: $e');
   }
+}
+
+
+Future<void> sendBookingConfirmationEmail(String recipientEmail, String hotelName, RoomData? roomData) async {
+  final smtpServer = gmail('pujakadayat1@gmail.com', 'zire chgc uvih tndh');
+
+  // Create the email message
+  final message = Message()
+    ..from = Address('yatra@gmail.com', 'Yatra')
+    ..recipients.add(recipientEmail)
+    ..subject = 'Booking Confirmation'
+    ..text = 'Thank you for booking with us!\n\n'
+              'Hotel: $hotelName\n'
+              'Room Details: ${roomData?.numberOfRooms} room(s)\n' // Assuming roomData is an instance of RoomData
+              'Number of People: ${roomData?.numberOfPeople}\n\n' // Assuming roomData is an instance of RoomData
+              'Your booking is confirmed.';
+
+  try {
+    // Send the email
+    final sendReport = await send(message, smtpServer);
+
+    print('Message sent: ' + sendReport.toString());
+  } catch (e) {
+    print('Error sending email: $e');
+  }
+}
 
 
   @override
@@ -84,30 +122,32 @@ class _RoomBookViewState extends State<RoomBookView> {
     );
   }
 
-  Widget _buildImageSlider(List<String> images) {
+Widget _buildImageSlider(List<String> images) {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.5,
-          child: PageView(
+          child: PageView.builder(
             controller: pageController,
-            pageSnapping: true,
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              for (var image in images)
-                Image.asset(
-                  image,
+            itemCount: images.length,
+            itemBuilder: (context, index) {
+              // Use the image paths from ImagePaths class
+              return SizedBox(
+                // height: 0,
+                child: Image.asset(
+                  ImagePaths.room_1,
                   fit: BoxFit.cover,
                 ),
-            ],
+              );
+            },
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: SmoothPageIndicator(
             controller: pageController,
-            count: 3,
+            count: images.length,
             effect: WormEffect(
               activeDotColor: Theme.of(context).primaryColor,
               dotColor: Theme.of(context).backgroundColor,
@@ -121,6 +161,9 @@ class _RoomBookViewState extends State<RoomBookView> {
       ],
     );
   }
+
+
+ 
 
   Widget _buildRoomDetails() {
     return Padding(
@@ -157,7 +200,7 @@ class _RoomBookViewState extends State<RoomBookView> {
               child: GestureDetector(
                 onTap: () {
                   // Call the bookNow function when the button is tapped
-                  bookNow();
+                  bookNow(widget.roomData);
                 },
                 child: Text(
                   "book_now",

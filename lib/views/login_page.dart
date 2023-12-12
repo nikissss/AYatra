@@ -8,6 +8,7 @@ import 'package:yatra1/components/squaretile.dart';
 import 'package:yatra1/screens/homescreen.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
 import 'package:yatra1/views/forget_passwordpage.dart';
+import 'package:yatra1/views/registerpage.dart';
 
 
 class Loginpage extends StatefulWidget {
@@ -25,7 +26,7 @@ void navigateToHomePage(BuildContext context) {
     context,
     MaterialPageRoute(
       builder: (context) {
-        // Replace 'HomePage' with the actual name of your home page widget
+        
         return HomeScreen();
       },
     ),
@@ -64,6 +65,7 @@ showDialog(
    showErrorMessage(e.code);
   }
 }
+
 //error messsage to user
 void showErrorMessage(String message){
   showDialog(
@@ -248,7 +250,16 @@ class _LoginpageState extends State<Loginpage> {
                 )),
                 const SizedBox(width:4),
                  GestureDetector(
-                  onTap: widget.onTap,
+               onTap: () {
+                        // Navigate to the register page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                RegisterPage(onTap: widget.onTap, context: context),
+                          ),
+                        );
+                      },
                    child: const Text(
                     'Register now',
                     style:TextStyle(
@@ -256,7 +267,7 @@ class _LoginpageState extends State<Loginpage> {
                     fontWeight: FontWeight.bold
                     ),
                     ),
-                 ),
+                 )
                 ],)
                       ],
                       ),

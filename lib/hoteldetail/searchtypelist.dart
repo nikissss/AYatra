@@ -1,10 +1,161 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:yatra1/appLocalization.dart';
+// import 'package:yatra1/utilis/hotellistdata.dart';
+// import 'package:yatra1/widgets/commoncard.dart';
+
+
+// class SearchTypeListView extends StatefulWidget {
+//   @override
+//   _SearchTypeListViewState createState() => _SearchTypeListViewState();
+// }
+
+// class _SearchTypeListViewState extends State<SearchTypeListView>
+//     with TickerProviderStateMixin {
+//   List<HotelListData> hotelTypeList = HotelListData.hotelTypeList;
+
+//   late AnimationController animationController;
+
+//   @override
+//   void initState() {
+//     animationController = AnimationController(
+//         duration: Duration(milliseconds: 2000), vsync: this);
+//     super.initState();
+//   }
+
+//   @override
+//   void dispose() {
+//     animationController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 114,
+//       child: ListView.builder(
+//         padding: const EdgeInsets.only(top: 0, right: 16, left: 16),
+//         itemCount: hotelTypeList.length,
+//         scrollDirection: Axis.horizontal,
+//         itemBuilder: (context, index) {
+//           var count = hotelTypeList.length;
+//           var animation = Tween(begin: 0.0, end: 1.0).animate(
+//             CurvedAnimation(
+//               parent: animationController,
+//               curve: Interval((1 / count) * index, 1.0,
+//                   curve: Curves.fastOutSlowIn),
+//             ),
+//           );
+//           animationController.forward();
+//           return AnimatedBuilder(
+//             animation: animationController,
+//             builder: (BuildContext context, Widget? child) {
+//               return FadeTransition(
+//                 opacity: animation,
+//                 child: new Transform(
+//                   transform: new Matrix4.translationValues(
+//                       50 * (1.0 - animation.value), 0.0, 0.0),
+//                   child: Padding(
+//                     padding: const EdgeInsets.only(
+//                         left: 8.0, right: 8.0, bottom: 8, top: 0),
+//                     child: Column(
+//                       children: <Widget>[
+//                         Stack(
+//                           children: <Widget>[
+//                             Container(
+//                               width: 80,
+//                               decoration: BoxDecoration(
+//                                 color: Theme.of(context).primaryColor,
+//                                 borderRadius:
+//                                     BorderRadius.all(Radius.circular(80.0)),
+//                                 boxShadow: <BoxShadow>[
+//                                   BoxShadow(
+//                                     color: Theme.of(context).dividerColor,
+//                                     blurRadius: 8,
+//                                     offset: Offset(4, 4),
+//                                   ),
+//                                 ],
+//                               ),
+//                               child: ClipRRect(
+//                                 borderRadius:
+//                                     BorderRadius.all(Radius.circular(80.0)),
+//                                 child: AspectRatio(
+//                                   aspectRatio: 1,
+//                                   child: Image.asset(
+//                                     hotelTypeList[index].imagePath,
+//                                     fit: BoxFit.cover,
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                             Material(
+//                               color: Colors.transparent,
+//                               child: InkWell(
+//                                 borderRadius:
+//                                     BorderRadius.all(Radius.circular(80.0)),
+//                                 highlightColor: Colors.transparent,
+//                                 splashColor: Theme.of(context)
+//                                     .primaryColor
+//                                     .withOpacity(0.4),
+//                                 onTap: () {
+//                                   setState(() {
+//                                     hotelTypeList[index].isSelected =
+//                                         !hotelTypeList[index].isSelected;
+//                                   });
+//                                 },
+//                                 child: Opacity(
+//                                   opacity: hotelTypeList[index].isSelected
+//                                       ? 1.0
+//                                       : 0.0,
+//                                   child: CommonCard(
+//                                     color: Theme.of(context)
+//                                         .primaryColor
+//                                         .withOpacity(0.4),
+//                                     radius: 48,
+//                                     child: SizedBox(
+//                                       height: 80,
+//                                       width: 80,
+//                                       child: Center(
+//                                         child: Icon(
+//                                           FontAwesomeIcons.check,
+//                                           color:
+//                                               Theme.of(context).backgroundColor,
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             )
+//                           ],
+//                         ),
+//                         Padding(
+//                           padding: const EdgeInsets.only(top: 4),
+//                           child: Text(
+//                             AppLocalizations(context)
+//                                 .of(hotelTypeList[index].titleTxt),
+//                             maxLines: 2,
+//                             style: TextStyle(fontSize: 12),
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:yatra1/appLocalization.dart';
 import 'package:yatra1/utilis/hotellistdata.dart';
 import 'package:yatra1/widgets/commoncard.dart';
-
 
 class SearchTypeListView extends StatefulWidget {
   @override
@@ -19,8 +170,8 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
 
   @override
   void initState() {
-    animationController = AnimationController(
-        duration: Duration(milliseconds: 2000), vsync: this);
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 2000), vsync: this);
     super.initState();
   }
 
@@ -43,8 +194,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
           var animation = Tween(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
               parent: animationController,
-              curve: Interval((1 / count) * index, 1.0,
-                  curve: Curves.fastOutSlowIn),
+              curve: Interval((1 / count) * index, 1.0, curve: Curves.fastOutSlowIn),
             ),
           );
           animationController.forward();
@@ -57,8 +207,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                   transform: new Matrix4.translationValues(
                       50 * (1.0 - animation.value), 0.0, 0.0),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 8.0, right: 8.0, bottom: 8, top: 0),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8, top: 0),
                     child: Column(
                       children: <Widget>[
                         Stack(
@@ -67,8 +216,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                               width: 80,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80.0)),
+                                borderRadius: BorderRadius.all(Radius.circular(80.0)),
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
                                     color: Theme.of(context).dividerColor,
@@ -78,8 +226,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                                 ],
                               ),
                               child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80.0)),
+                                borderRadius: BorderRadius.all(Radius.circular(80.0)),
                                 child: AspectRatio(
                                   aspectRatio: 1,
                                   child: Image.asset(
@@ -92,26 +239,18 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80.0)),
+                                borderRadius: BorderRadius.all(Radius.circular(80.0)),
                                 highlightColor: Colors.transparent,
-                                splashColor: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.4),
+                                splashColor: Theme.of(context).primaryColor.withOpacity(0.4),
                                 onTap: () {
                                   setState(() {
-                                    hotelTypeList[index].isSelected =
-                                        !hotelTypeList[index].isSelected;
+                                    hotelTypeList[index].isSelected = !hotelTypeList[index].isSelected;
                                   });
                                 },
                                 child: Opacity(
-                                  opacity: hotelTypeList[index].isSelected
-                                      ? 1.0
-                                      : 0.0,
+                                  opacity: hotelTypeList[index].isSelected ? 1.0 : 0.0,
                                   child: CommonCard(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.4),
+                                    color: Theme.of(context).primaryColor.withOpacity(0.4),
                                     radius: 48,
                                     child: SizedBox(
                                       height: 80,
@@ -119,8 +258,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                                       child: Center(
                                         child: Icon(
                                           FontAwesomeIcons.check,
-                                          color:
-                                              Theme.of(context).backgroundColor,
+                                          color: Theme.of(context).backgroundColor,
                                         ),
                                       ),
                                     ),
@@ -133,8 +271,7 @@ class _SearchTypeListViewState extends State<SearchTypeListView>
                         Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: Text(
-                            AppLocalizations(context)
-                                .of(hotelTypeList[index].titleTxt),
+                            hotelTypeList[index].titleTxt,
                             maxLines: 2,
                             style: TextStyle(fontSize: 12),
                           ),

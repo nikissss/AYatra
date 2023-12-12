@@ -1,8 +1,12 @@
+
+
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:yatra1/providers/theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yatra1/screens/homescreen.dart';
 import 'package:yatra1/screens/hotelbookscreen.dart';
+import 'package:yatra1/screens/hotellistview.dart';
 import 'package:yatra1/utilis/hotel_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:yatra1/firebase_options.dart';
@@ -90,13 +94,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
        
         theme: HotelTheme.buildLightTheme(),
-   home: Loginpage(onTap: onTap, context: context)
+ home: Loginpage(onTap: onTap, context: context)
         // Your app configuration
-  //  home: const HotelHomeScreen(),
+  // home: const HotelHomeScreen(),
     // home:RegisterPage(onTap: onTap, context: context)
-      // home:RoomeBookView(roomData: roomData, animationController: animationController, animation: animation)
+     // home:RoomeBookView(roomData: roomData, animationController: animationController, animation: animation)
         // home:HotelListView(),
           // home:FiltersScreen(),
+         // home:HotelListView()
+       //  home:HomeScreen()
       ),
     );
   }

@@ -67,4 +67,6 @@ static List<HotelListData> hotelList = <HotelListData>[
 
   get roomData => null;
 
+  String? get dateTxt => null;
+
 }

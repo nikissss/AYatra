@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yatra1/components/mybutton.dart';
 import 'package:yatra1/components/mytextfield.dart';
 import 'package:yatra1/components/squaretile.dart';
+import 'package:yatra1/screens/homescreen.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -54,7 +55,21 @@ showDialog(
 
    showErrorMessage(e.code);
   }
+
+    navigateToHomePage(context);
 }
+
+// Method to navigate to the home page
+void navigateToHomePage(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return HomeScreen();
+        },
+      ),
+    );
+  }
 //error messsage to user
 void showErrorMessage(String message){
   showDialog(
@@ -208,12 +223,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   //google button
                 SquareTile(
                   onTap: () => AuthService().signInWithGoogle(),
-                  imagePath: 'lib/img/g2.png'),
+                  imagePath: 'lib/images/g2.png'),
                 const SizedBox(width:25),
                 //apple button
-                SquareTile(
-                  onTap: () {},
-                  imagePath: 'lib/img/a4.png')
+                // SquareTile(
+                //   onTap: () {},
+                //   imagePath: 'lib/img/a4.png')
                 ],
                 ),
                 const SizedBox(height:50),

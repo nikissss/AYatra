@@ -3,15 +3,14 @@
 
 
 import 'package:yatra1/utilis/hotellistmodel.dart';
-
 import 'package:flutter/material.dart';
 import 'package:yatra1/utilis/roomdata.dart';
 import 'package:yatra1/utils/localfiles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class HotelListData {
-  String imagePath;
-  String titleTxt;
+class HotelListData{
+  final String imagePath;
+ final String titleTxt;
   String subTxt;
   DateText? date;
   String dateTxt;
@@ -20,7 +19,7 @@ class HotelListData {
   double dist;
   double rating;
   int reviews;
-  int perNight;
+ final int perNight;
   bool isSelected;
   PeopleSleeps? peopleSleeps;
   LatLng? location;
