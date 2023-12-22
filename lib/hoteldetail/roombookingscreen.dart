@@ -123,10 +123,13 @@ import 'package:yatra1/hoteldetail/roombookview.dart' as RoomBookView;
 import 'package:yatra1/utils/text_styles.dart';
 import 'package:yatra1/utilis/hotellistdata.dart' as HotelListDataUtilis;
 
+
+
 class RoomBookingScreen extends StatefulWidget {
   final String hotelName;
-
-  const RoomBookingScreen(this.hotelName, {Key? key}) : super(key: key);
+ final String hotelTitle;
+ const RoomBookingScreen({Key? key, required this.hotelName, required this.hotelTitle})
+      : super(key: key);
 
   @override
   _RoomBookingScreenState createState() => _RoomBookingScreenState();
