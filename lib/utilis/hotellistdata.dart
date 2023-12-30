@@ -46,7 +46,7 @@ class HotelListData{
   // we need location in this hotelList bcz we using that in map
   static List<HotelListData> hotelList = [
     HotelListData(
-      imagePath: 'lib/images/Tuki resort,Pokhara.webp',
+      imagePath: 'lib/assets/images/tukiresort.jpg',
       titleTxt: 'Tuki Resort Pokhara',
       subTxt: 'Phewa lake,Pokhara',
       dist: 2.0,
@@ -59,7 +59,7 @@ class HotelListData{
       location: LatLng(51.516898, -0.143377),
     ),
     HotelListData(
-    imagePath: 'lib/images/Himalayan front hotel Pokhara.avif',
+      imagePath: 'lib/assets/images/himalayan-front-at-night.jpg',
       titleTxt: 'Himalayan Front Hotel ',
       subTxt: 'Simpani,Pokhara',
       dist: 4.0,
@@ -72,20 +72,20 @@ class HotelListData{
       location: LatLng(51.505799, -0.137904),
     ),
     HotelListData(
-       imagePath: 'lib/images/Hotel Splendid View Pokhara.avif',
+      imagePath: 'lib/assets/images/hotelsplendidviewpokhara.jpg',
       titleTxt: 'Splendid View',
       subTxt: 'lakeside,Pokhara',
       dist: 3.0,
       reviews: 62,
       rating: 4.0,
-      perNight: 60,
+      perNight: 360,
       roomData: RoomData(2, 3),
       isSelected: false,
       date: DateText(5, 9),
       location: LatLng(51.499162, -0.119788),
     ),
     HotelListData(
-     imagePath: 'lib/images/Bar Pepal Resort Pokhara.avif',
+      imagePath: 'lib/assets/images/barpepalresort.jpg',
       titleTxt: 'Bar Peepal Resort',
       subTxt: 'Phewa lake,Pokhara',
       dist: 7.0,
@@ -98,7 +98,7 @@ class HotelListData{
       location: LatLng(51.519541, -0.114503),
     ),
     HotelListData(
-     imagePath: 'lib/images/f95d55c6ae3111e7af770a9df65c8753.jpg.avif',
+      imagePath: 'lib/assets/images/waterfrontresort.jpg',
       titleTxt: 'WaterFront Resort',
       subTxt: 'Phewa lake,Pokhara',
       dist: 2.0,

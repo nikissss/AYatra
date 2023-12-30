@@ -2,22 +2,22 @@ import 'package:yatra1/utilis/Des-Model.dart';
 
 List<Map<String, dynamic>> hotelList = [
   {
-    'image': 'one.png',
-    'place': 'Open Space',
-    'destination': 'London',
-    'price': 25
+    "image": 'one.png',
+    'place': '',
+    'destination': 'Phewa lake,Pokhara',
+    'price': 180,
   },
   {
     'image': 'two.png',
-    'place': 'Global Will',
-    'destination': 'London',
-    'price': 40
+    'place': '',
+    'destination': 'Simpani,Pokhara',
+    'price': 200
   },
   {
     'image': 'three.png',
-    'place': 'Tallest Building',
-    'destination': 'Dubai',
-    'price': 68
+    'place': '',
+    'destination':'lakeside,Pokhara',
+    'price': 600
   },
 ];
 

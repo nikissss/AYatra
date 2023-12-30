@@ -86,9 +86,6 @@ class _FinishTripViewState extends State<FinishTripView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Your App Title'),
-      ),
       body: Container(
         child: ListView.builder(
           itemCount: hotelList.length,

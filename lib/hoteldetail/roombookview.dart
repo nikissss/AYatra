@@ -2,6 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yatra1/appLocalization.dart';
+import 'package:yatra1/components/booknow.dart';
+import 'package:yatra1/screens/payment.dart';
 import 'package:yatra1/utilis/hotellistdata.dart';
 import 'package:yatra1/utils/helper.dart';
 import 'package:yatra1/utils/text_styles.dart';
@@ -46,7 +48,6 @@ Future<void> bookNow(HotelListData roomData) async {
         'numberOfPeople': roomData.roomData?.numberOfPeople, // Assuming roomData is an instance of RoomData
         
       });
-
       // Sending booking confirmation email
       await sendBookingConfirmationEmail(userEmail, roomData.titleTxt, roomData.roomData);
 
@@ -64,9 +65,8 @@ Future<void> bookNow(HotelListData roomData) async {
   }
 }
 
-
 Future<void> sendBookingConfirmationEmail(String recipientEmail, String hotelName, RoomData? roomData) async {
-  final smtpServer = gmail('your@gmail.com', 'your app password');
+  final smtpServer = gmail('pudakadayat1@gmail.com', 'priw rxgt benm wbuv');
 
   // Create the email message
   final message = Message()
@@ -200,13 +200,30 @@ Widget _buildImageSlider(List<String> images) {
               child: GestureDetector(
                 onTap: () {
                   // Call the bookNow function when the button is tapped
-                  bookNow(widget.roomData);
+                  bookNow(widget.roomData );
                 },
                 child: Text(
                   "book_now",
                   textAlign: TextAlign.center,
                   style: TextStyles(context).getRegularStyle(),
                 ),
+//                 child:InkWell(
+// onTap: () {
+// // Add your onTap functionality here
+// Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) => Payment(),
+//               ),
+//             );
+// // You can navigate to a new screen, perform an action, etc.
+// },
+// child: Text(
+// "book_now",
+// textAlign: TextAlign.center,
+// style: TextStyles(context).getRegularStyle(),
+// ),
+// )
               ),
             ),
           ),

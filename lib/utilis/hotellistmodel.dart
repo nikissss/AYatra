@@ -19,7 +19,7 @@ HotelListData({
 
 static List<HotelListData> hotelList = <HotelListData>[
     HotelListData(
-      imagePath: 'lib/images/Tuki resort,Pokhara.webp',
+      imagePath: 'lib/assets/images/tukiresort.jpg',
       titleTxt: 'Tuki Resort Pokhara',
       subTxt: 'Phewa lake,Pokhara',
       dist: 2.0,
@@ -28,7 +28,7 @@ static List<HotelListData> hotelList = <HotelListData>[
       perNight: 180,
     ),
     HotelListData(
-      imagePath: 'lib/images/Himalayan front hotel Pokhara.avif',
+      imagePath: 'lib/assets/images/himalayan-front-at-night.jpg',
       titleTxt: 'Himalayan Front Hotel ',
       subTxt: 'Simpani,Pokhara',
       dist: 4.0,
@@ -37,7 +37,7 @@ static List<HotelListData> hotelList = <HotelListData>[
       perNight: 200,
     ),
     HotelListData(
-      imagePath: 'lib/images/Hotel Splendid View Pokhara.avif',
+      imagePath: 'lib/assets/images/hotelsplendidviewpokhara.jpg',
       titleTxt: 'Splendid View',
       subTxt: 'lakeside,Pokhara',
       dist: 3.0,
@@ -46,7 +46,7 @@ static List<HotelListData> hotelList = <HotelListData>[
       perNight: 60,
     ),
     HotelListData(
-      imagePath: 'lib/images/Bar Pepal Resort Pokhara.avif',
+      imagePath: 'lib/assets/images/barpepalresort.jpg',
       titleTxt: 'Bar Peepal Resort',
       subTxt: 'Phewa lake,Pokhara',
       dist: 7.0,
@@ -55,7 +55,7 @@ static List<HotelListData> hotelList = <HotelListData>[
       perNight: 170,
     ),
     HotelListData(
-      imagePath: 'lib/images/f95d55c6ae3111e7af770a9df65c8753.jpg.avif',
+      imagePath: 'lib/assets/images/waterfrontresort.jpg',
       titleTxt: 'WaterFront Resort',
       subTxt: 'Phewa lake,Pokhara',
       dist: 2.0,

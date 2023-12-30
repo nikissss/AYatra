@@ -397,7 +397,7 @@ void updateSelectedOptions() {
                       borderRadius: BorderRadius.circular(12) ,
                       image: const DecorationImage(
                       image: AssetImage(
-                         "assets/images/appIcon.png"
+                         "lib/assets/images/appIcon.png"
                         )
                         )
                     ),

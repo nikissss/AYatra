@@ -63,6 +63,7 @@ dependencies:
   latlng : ^1.0.0
   khalti_flutter: ^2.2.1
   animated_splash_screen: ^1.3.0
+  csc_picker: ^0.2.7
   
   # flutter_mailer: ^2.0.0
 
@@ -101,7 +102,7 @@ flutter:
   # sdk: flutter
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/images/
+    - lib/assets/images/
     - lib/images/palace of versailles paris.jpeg
     - lib/images/Miracle Garden Dubai.jpeg
     - lib/images/Rhine falls Switzerland.jpeg

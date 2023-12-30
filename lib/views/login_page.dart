@@ -124,15 +124,16 @@ class _LoginpageState extends State<Loginpage> {
                       children: [
                  const SizedBox(height:50),
                 //logo
-                const  Icon(
-                  Icons.lock,
-                size:100,
-                ),
-                const SizedBox(height:50),
+                // const  Icon(
+                //   Icons.lock,
+                // size:100,
+                // ),
+                Image.asset("lib/assets/images/logo.png"),
+                const SizedBox(height:5),
                 //welcome back,you've been missed!
                 const Text("Book your Yatra here",
                 style:TextStyle(
-                  color: Color(0xFF616161), // Replace with the appropriate color code
+                  color: Colors.black, // Replace with the appropriate color code
                 fontSize: 16,
                 ),
                 ),
@@ -143,7 +144,7 @@ class _LoginpageState extends State<Loginpage> {
                 
                 mytextfield(
                   controller:Loginpage.emailController,
-                  hintText: 'email',
+                  hintText: 'Your Yatra email',
                   obscureText:false ,
                 
                 ),
@@ -176,7 +177,7 @@ class _LoginpageState extends State<Loginpage> {
                    ) ;
                 },
                 child: const Text(
-                        'Forget Password?',
+                        'Forgot Password?',
                         style:
                         TextStyle(
                     color:Colors.blue,
@@ -210,8 +211,8 @@ class _LoginpageState extends State<Loginpage> {
                   Padding(
                   padding: const EdgeInsets.symmetric(horizontal:10.0),
                   child: Text(
-                    'Or continue with',
-                    style:TextStyle(color:Colors.grey[700])
+                    'OR',
+                    style:TextStyle(color:Colors.black)
                     ),
                   ),
                   Expanded(
@@ -224,22 +225,22 @@ class _LoginpageState extends State<Loginpage> {
                   ),
                 ),
                 const SizedBox(height:50),
-                //google + apple sign in button
-               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  //google button
-                SquareTile(
-                  onTap: () => AuthService().signInWithGoogle(),
-                  imagePath: 'lib/images/g2.png'),
-                const SizedBox(width:25),
-                //apple button
-                SquareTile(
-                  onTap: () {},
-                  imagePath: 'lib/images/a4.png')
-                ],
-                ),
-                const SizedBox(height:50),
+              //   //google + apple sign in button
+              //  Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //     //google button
+              //   SquareTile(
+              //     onTap: () => AuthService().signInWithGoogle(),
+              //     imagePath: 'lib/images/g2.png'),
+              //   const SizedBox(width:25),
+              //   //apple button
+              //   SquareTile(
+              //     onTap: () {},
+              //     imagePath: 'lib/images/a4.png')
+              //   ],
+              //   ),
+              //   const SizedBox(height:50),
                 
                 //not a memeber?register now
                 Row(
@@ -247,7 +248,7 @@ class _LoginpageState extends State<Loginpage> {
                   children: [
                 Text('Not a member?',
                 style:TextStyle(
-                  color:Colors.grey[700]
+                  color:Colors.black
                 )),
                 const SizedBox(width:4),
                  GestureDetector(

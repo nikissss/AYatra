@@ -1,9 +1,9 @@
 class RoomData {
   int numberRoom;
+  int children;
+  int adult;
 
-  int people;
-
-  RoomData({required this.numberRoom, required this.people});
+  RoomData({required this.numberRoom, required this.adult, required this.children});
 }
 
 class DateText {

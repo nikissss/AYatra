@@ -54,7 +54,7 @@ class ListFlightScreen extends StatelessWidget {
               }
             },
             icon: Image.asset(
-              "assets/images/paint.png"
+              "lib/assets/images/paint.png"
             ),
              //icon: SvgPicture.asset("assets/images/paint.png"),
              )

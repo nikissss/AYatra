@@ -106,8 +106,12 @@ class HotelListView extends StatelessWidget {
                                         children: <Widget>[
                                           Text(
                                             hotelData.subTxt,
-                                            style: TextStyles(context)
-                                                .getDescriptionStyle(),
+                                            // style: TextStyles(context)
+                                            //     .getDescriptionStyle(),
+                                            style:TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                              ),
                                           ),
                                           SizedBox(
                                             width: 4,
@@ -121,16 +125,22 @@ class HotelListView extends StatelessWidget {
                                           Text(
                                             "${hotelData.dist.toStringAsFixed(1)}",
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyles(context)
-                                                .getDescriptionStyle(),
+                                            // style: TextStyles(context)
+                                            //     .getDescriptionStyle(),
+                                            style:TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                              ),
                                           ),
                                           Expanded(
                                             child: Text(
                                             
                                           "km_to_city",
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyles(context)
-                                                  .getDescriptionStyle(),
+                                             style:TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -142,13 +152,14 @@ class HotelListView extends StatelessWidget {
                                             Helper.ratingStar(),
                                             Text(
                                               " ${hotelData.reviews}",
-                                              style: TextStyles(context)
-                                                  .getDescriptionStyle(),
+                                              style:TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                             Text(
                                               "reviews",
-                                              style: TextStyles(context)
-                                                  .getDescriptionStyle(),
+                                            style:TextStyle(color: Colors.black),
                                             ),
                                           ],
                                         ),

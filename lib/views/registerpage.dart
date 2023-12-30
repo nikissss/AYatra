@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yatra1/components/mybutton.dart';
 import 'package:yatra1/components/mytextfield.dart';
 import 'package:yatra1/components/squaretile.dart';
+import 'package:yatra1/screens/bottom_bar.dart';
 import 'package:yatra1/screens/homescreen.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
 
@@ -65,7 +66,7 @@ void navigateToHomePage(BuildContext context) {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return HomeScreen();
+          return BottomBar();
         },
       ),
     );

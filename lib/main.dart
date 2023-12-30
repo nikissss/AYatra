@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:yatra1/views/login_page.dart';
 import 'package:yatra1/views/registerpage.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 
 
 void main() async {
@@ -48,6 +49,10 @@ class MyApp extends StatelessWidget {
    
     // var animation;
     var animationController;
+    return KhaltiScope(
+      publicKey: 'test_public_key_2567db2f2f6944f791f9768fcabbf3a1',
+      enabledDebugging: true,
+      builder: (context,navkey){
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ThemeProvider>(
@@ -69,31 +74,28 @@ theme: ThemeData(
       home:  AnimatedSplashScreen(
         splash:  Transform.scale(
     scale: 3.0, // Adjust the scale factor as needed
-    child: Image.asset('assets/images/yatra.png'),
+    child: Image.asset('lib/assets/images/logologo.png'),
   ),
         //Image.asset('assets/images/yatra.png'),
         duration: 2000,
-        splashTransition: SplashTransition.rotationTransition,
-        backgroundColor: Colors.grey, 
+        splashTransition: SplashTransition.fadeTransition,
+        backgroundColor: Colors.white, 
         nextScreen: Loginpage(onTap: () {  },context: context,),
         ),
-        // Your app configuration
-//home: const HotelHomeScreen(),
-    // home:RegisterPage(onTap: onTap, context: context)
-     // home:RoomeBookView(roomData: roomData, animationController: animationController, animation: animation)
-        // home:HotelListView(),
-          // home:FiltersScreen(),
-         // home:HotelListView()
-     // home:HomeScreen()
-    // home:BottomBar()
-    // home:MyTripsScreen(animationController: animationController)
-    // home:MyTripsScreen(animationController: animationController)
-    //home:ProfileScreen(animationController:animationController)
-      ),
-    );
+        
+     
+   
+    navigatorKey: navkey,
+      localizationsDelegates: const [
+        KhaltiLocalizations.delegate
+,      ],
+ ),
+ );
   }
+  );
 
   onTap() {
+  }
   }
 }
 

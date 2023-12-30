@@ -8,6 +8,8 @@ import 'package:yatra1/utilis/applayout.dart';
 import 'package:yatra1/utilis/app_styles.dart';
 import 'package:yatra1/utilis/dummy_data.dart';
 import 'package:yatra1/utilis/flight_model.dart';
+import 'package:csc_picker/csc_picker.dart';
+
 
 class OneWayTicket extends StatefulWidget {
   const OneWayTicket({Key? key}) : super(key: key);
@@ -131,6 +133,7 @@ class _OneWayTicketState extends State<OneWayTicket> {
                               inputDecoration: InputDecoration(
                                   hintText: "Type your destination",
                                   labelText: "Search")),
+                                  
                           onSelect: (Country value) {
                             countryCode1 = value.name.toString();
                             setState(() {});
@@ -139,6 +142,38 @@ class _OneWayTicketState extends State<OneWayTicket> {
                       },
                       child: Text(countryCode1.toString()),
                     ),
+    //                   TextButton(
+    //   onPressed: () {
+    //     showDialog(
+    //       context: context,
+    //       builder: (BuildContext context) {
+    //         return AlertDialog(
+    //           content: Container(
+    //             width: double.maxFinite,
+    //             child: CSCPicker(
+    //               onCountryChanged: (country){},
+    //               onStateChanged: (state){},
+    //               onCityChanged: (city){},
+    //               // onCountryChanged: (value) {
+    //               //   // Handle country change if needed
+    //               // },
+    //               // onStateChanged: (value) {
+    //               //   // Handle state change if needed
+    //               // },
+    //               // onCityChanged: (value) {
+    //               //   setState(() {
+    //               //     countryCode1 = value ?? '';
+    //               //   });
+    //               //   Navigator.pop(context); // Close the dialog
+    //               // },
+    //             ),
+    //           ),
+    //         );
+    //       },
+    //     );
+    //   },
+    //   child: Text(countryCode1.isNotEmpty ? countryCode1 : "Select City"),
+    // )
                   ],
                 ),
               ],

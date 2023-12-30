@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class mytextfield extends StatelessWidget {
-  final controller; //controller used to access what the user types in text field
+  final TextEditingController controller; //controller used to access what the user types in text field
   final String hintText; //hint to the user what should be typed in text field
   final bool obscureText; //boolean  , used to hide the password while typing in text field
   const mytextfield({
@@ -17,6 +17,7 @@ class mytextfield extends StatelessWidget {
   padding:const EdgeInsets.symmetric(horizontal:25.0),
   child:   TextField(
     controller: controller,
+    obscureText: obscureText,
     decoration:InputDecoration(
       enabledBorder:const  OutlineInputBorder(
         borderSide: BorderSide(color:Colors.white),
