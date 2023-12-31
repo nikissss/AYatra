@@ -48,7 +48,7 @@ class _HotelScreenState extends State<HotelScreen> {
             image: DecorationImage(
               fit:BoxFit.cover,
               image: AssetImage(
-                "lib/images/${widget.hotel['image']}",
+                "${widget.hotel['image']}", //eta bata lib/images hatako
               )
             
             )
@@ -73,7 +73,7 @@ class _HotelScreenState extends State<HotelScreen> {
  SizedBox(height:AppLayout.getHeight(8)),
        Text(
   widget.hotel != null && widget.hotel.containsKey('price')
-      ? '\$${widget.hotel['price']}/night'
+      ? 'Rs. ${widget.hotel['price']} per night'
       : 'Price not available',
   style: Styles.headLinestyle1.copyWith(color: Styles.kakiColor),
 ),

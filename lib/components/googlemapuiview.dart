@@ -121,7 +121,7 @@ class _GoogleMapUIViewState extends State<GoogleMapUIView> {
                                               top: 4,
                                               bottom: 4),
                                           child: Text(
-                                            "\$${item.perNight}",
+                                            "Rs. ${item.perNight}",
                                             style: TextStyle(
                                                 color: item.isSelected
                                                     ? AppTheme.backgroundColor

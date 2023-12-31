@@ -46,6 +46,7 @@ class _UpcomingListViewState extends State<UpcomingListView> {
                   builder: (context) => RoomBookingScreen(
                      hotelName: hotelList[index].titleTxt,  // Pass the correct argument
                     hotelTitle: hotelList[index].titleTxt,
+                   
                     
                   ),
                 ),

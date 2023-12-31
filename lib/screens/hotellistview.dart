@@ -84,7 +84,7 @@ class HotelListView extends StatelessWidget {
                                             children: <Widget>[
                                               Text(
                                                 hotelData!.subTxt,
-                                                style: TextStyle(color: Colors.grey.withOpacity(0.8), fontSize: 14),
+                                                style: TextStyle(color: Colors.black, fontSize: 14),
                                               ),
                                               const SizedBox(width: 4),
                                               Icon(
@@ -98,7 +98,7 @@ class HotelListView extends StatelessWidget {
                                                   overflow: TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                     fontSize: 14,
-                                                    color: Colors.grey.withOpacity(0.8),
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                               ),
@@ -133,7 +133,7 @@ class HotelListView extends StatelessWidget {
                                                 ),
                                                 Text(
                                                   '${hotelData!.reviews} Reviews',
-                                                  style: TextStyle(fontSize: 12, color: Colors.grey.withOpacity(0.8)),
+                                                  style: TextStyle(fontSize: 12, color: Colors.black),
                                                 )
                                               ],
                                             ),
@@ -149,7 +149,7 @@ class HotelListView extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          '\$${hotelData!.perNight}',
+                                          'Rs. ${hotelData!.perNight}',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                                         ),

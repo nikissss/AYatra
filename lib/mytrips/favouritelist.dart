@@ -114,7 +114,7 @@ class _FavoritesListViewState extends State<FavoritesListView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RoomBookingScreen(hotelTitle: hotelTitle, hotelName: ''),
+        builder: (context) => RoomBookingScreen(hotelTitle: hotelTitle, hotelName: '',),
       ),
     );
   }

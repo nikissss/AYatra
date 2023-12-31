@@ -71,5 +71,6 @@ class ListFlightScreen extends StatelessWidget {
           }),
     );
   }
+
 }
 

@@ -19,6 +19,18 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+   List<Map<String,dynamic>> _allUsers = [
+    {"id":1, "name":"Kathmandu"},
+    {"id":2, "name":"Pokhara"},
+    {"id":3, "name":"Surkhet"},
+    {"id":4, "name":"Bhadrapur"},
+    {"id":5, "name":"Biratnagar"},
+    {"id":6, "name":"Illam"},
+    {"id":7, "name":"Chitwan"},
+    {"id":8, "name":"Mustang"},
+  ];
+  String selectedCity1 = '';
+  String selectedCity2 = '';
   //create datetime variable
   DateTime _departureDate = DateTime.now();
   DateTime _arrivalDate = DateTime.now();
@@ -116,48 +128,68 @@ void updateSelectedOptions() {
       // const Gap(10), 
           //button
           TextButton(
-            onPressed: (){
-              showCountryPicker(
-                context: context, 
-                countryListTheme: CountryListThemeData(
-                  inputDecoration: InputDecoration(
-                    hintText: "Type your destination",
-                    labelText: "Search"
-                  )
-                ),
-                onSelect: (Country value){
-                  countryCode = value.name.toString();
+  onPressed: () {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200, // Set the desired height
+          child: ListView.builder(
+            itemCount: _allUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              final user = _allUsers[index];
+              return ListTile(
+                title: Text(user['name']),
+                onTap: () {
+                  // Handle selection of the city (user['name'])
+                  print('Selected city: ${user['name']}');
                   setState(() {
-                    
+                    selectedCity1 = user['name']; // Assuming you have a variable named selectedCity
                   });
-                }
-                );
-            }, 
-            child: Text(countryCode.toString())
-            ),
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  },
+  child: Text(selectedCity1.isNotEmpty ? selectedCity1 : "Select City"),
+),
           
           const Gap(100),
             Icon(Icons.flight_land_rounded, color: Color(0xFFBFC2DF)),
-            TextButton(
-            onPressed: (){
-              showCountryPicker(
-                context: context, 
-                countryListTheme: CountryListThemeData(
-                  inputDecoration: InputDecoration(
-                    hintText: "Type your destination",
-                    labelText: "Search"
-                  )
-                ),
-                onSelect: (Country value){
-                  countryCode1 = value.name.toString();
+             TextButton(
+  onPressed: () {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200, // Set the desired height
+          child: ListView.builder(
+            itemCount: _allUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              final user = _allUsers[index];
+              return ListTile(
+                title: Text(user['name']),
+                onTap: () {
+                  // Handle selection of the city (user['name'])
+                  print('Selected city: ${user['name']}');
                   setState(() {
-                    
+                    selectedCity2 = user['name']; // Assuming you have a variable named selectedCity
                   });
-                }
-                );
-            }, 
-            child: Text(countryCode1.toString())
-            ),
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  },
+  child: Text(selectedCity2.isNotEmpty ? selectedCity2 : "Select City"),
+),
             
           
         ],
@@ -491,12 +523,12 @@ void updateSelectedOptions() {
   }
   void updateFlightList() {
     // Only update the flight list if both departure and arrival countries are selected
-    if (countryCode.isNotEmpty && countryCode1.isNotEmpty) {
+    if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
 
       // Trigger a rebuild to reflect the updated list
       setState(() {
-          flights = getFlights(countryCode, countryCode1);
-          print("Updating flights with departure: $countryCode, arrival: $countryCode1");
+          flights = getFlights(selectedCity1, selectedCity2);
+          print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
 
       });
     }

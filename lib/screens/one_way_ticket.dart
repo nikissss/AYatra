@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:yatra1/screens/list_flight_screen.dart';
 import 'package:yatra1/utilis/applayout.dart';
 import 'package:yatra1/utilis/app_styles.dart';
@@ -17,7 +22,18 @@ class OneWayTicket extends StatefulWidget {
   @override
   State<OneWayTicket> createState() => _OneWayTicketState();
 }
-
+ List<Map<String,dynamic>> _allUsers = [
+    {"id":1, "name":"Kathmandu"},
+    {"id":2, "name":"Pokhara"},
+    {"id":3, "name":"Surkhet"},
+    {"id":4, "name":"Bhadrapur"},
+    {"id":5, "name":"Biratnagar"},
+    {"id":6, "name":"Illam"},
+    {"id":7, "name":"Chitwan"},
+    {"id":8, "name":"Mustang"},
+  ];
+  String selectedCity1 = '';
+  String selectedCity2 = '';
 class _OneWayTicketState extends State<OneWayTicket> {
   DateTime _departureDate = DateTime.now();
   bool _isDepartureDateSelected = true;
@@ -28,6 +44,8 @@ class _OneWayTicketState extends State<OneWayTicket> {
   String selectedOptions = "";
   late String d_country;
   late String a_country;
+  
+  String get userEmailAddress => '';
 
 
   void _showDatePicker() {
@@ -47,12 +65,157 @@ class _OneWayTicketState extends State<OneWayTicket> {
     });
   }
 
+Future<void> sendFlightDetailsEmail(
+  String recipientEmail,
+  String departureCountry,
+  String arrivalCountry,
+  DateTime departureDate,
+  int adults,
+  int children,
+  String paymentReference,
+) async {
+ final smtpServer = gmail('pujakadayat1@gmail.com', 'zire chgc uvih tndh');// Replace with your email credentials
+
+  // Create the email message
+  final message = Message()
+    ..from = Address('yatra@gmail.com', 'Yatra')
+    ..recipients.add(recipientEmail)
+    ..subject = 'Flight Details'
+    ..text = 'Your flight details:\n\n'
+        'From: $departureCountry\n'
+        'To: $arrivalCountry\n'
+        'Departure Date: ${DateFormat('yyyy-MM-dd').format(departureDate)}\n'
+        'Adults: $adults\n'
+        'Children: $children\n\n'
+        'Payment Reference: $paymentReference\n'
+        'Thank you for booking your flight with us!';
+
+  try {
+    // Send the email
+    final sendReport = await send(message, smtpServer);
+
+    print('Flight details email sent: ' + sendReport.toString());
+  } catch (e) {
+    print('Error sending flight details email: $e');
+  }
+}
+
+
+  Future<void> bookFlight(String paymentReference) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      String? userEmail = user?.email;
+
+      if (userEmail != null) {
+        // Store flight booking information in Cloud Firestore
+        DocumentReference bookingReference = await FirebaseFirestore.instance.collection('flight_bookings').add({
+          'userEmail': userEmail,
+          'departureCountry': countryCode,
+          'arrivalCountry': countryCode1,
+          'departureDate': _departureDate,
+          'adults': _selectedAdultValue,
+          'children': _selectedChildValue,
+          'paymentReference': paymentReference,
+        });
+
+        // Send flight booking confirmation email
+        await sendFlightBookingConfirmationEmail(
+          userEmail,
+          countryCode,
+          countryCode1,
+          _departureDate,
+          _selectedAdultValue,
+          _selectedChildValue,
+          paymentReference,
+        );
+
+        print('Flight booking successful!');
+        // Consider showing a confirmation message or navigating to another screen.
+
+        // Optionally, you can get the booking ID from Firestore and use it as needed
+        String bookingId = bookingReference.id;
+        print('Booking ID: $bookingId');
+      } else {
+        print('User not logged in or email is null.');
+      }
+    } catch (e) {
+      print('Error booking flight: $e');
+    }
+  }
+
+  Future<void> sendFlightBookingConfirmationEmail(
+    String recipientEmail,
+    String departureCountry,
+    String arrivalCountry,
+    DateTime departureDate,
+    int adults,
+    int children,
+    String paymentReference,
+  ) async {
+    final smtpServer = gmail('pujakadayat1@gmail.com', 'zire chgc uvih tndh');
+
+    // Create the email message
+    final message = Message()
+      ..from = Address('yatra@gmail.com', 'Yatra')
+      ..recipients.add(recipientEmail)
+      ..subject = 'Flight Booking Confirmation'
+      ..text = 'Thank you for booking your flight with us!\n\n'
+          'From: $departureCountry\n'
+          'To: $arrivalCountry\n'
+          'Departure Date: ${DateFormat('yyyy-MM-dd').format(departureDate)}\n'
+          'Adults: $adults\n'
+          'Children: $children\n\n'
+          'Your flight booking is confirmed.\n'
+          'Payment Reference: $paymentReference';
+
+    try {
+  // Send the email
+  final sendReport = await send(message, smtpServer);
+  print('Flight booking confirmation email sent: ' + sendReport.toString());
+} catch (e) {
+  print('Error sending flight booking confirmation email: $e');
+}
+  }
+void onSuccess(PaymentSuccessModel success) async {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text("Payment Successful"),
+        actions: [
+          SimpleDialogOption(
+            child: const Text("OK"),
+            onPressed: () {
+              setState(() {
+                var referenceId = success.idx;
+              });
+              Navigator.pop(context);
+
+              // Call the sendFlightDetailsEmail function with the payment reference code
+              sendFlightDetailsEmail(
+              userEmailAddress,  // Pass the user email address here
+                countryCode,  // Pass the departure country code here
+                countryCode1,  // Pass the arrival country code here
+                _departureDate,
+                _selectedAdultValue,
+                _selectedChildValue,
+                success.idx,
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
   void updateSelectedOptions() {
     setState(() {
       selectedOptions =
           "From: $countryCode\nTo: $countryCode1\nDeparture Date: ${DateFormat('yyyy-MM-dd').format(_departureDate)}\nAdults: $_selectedAdultValue\nChildren: $_selectedChildValue";
     });
   }
+  
   //   List<FlightModel> flights = []; // Initialize an empty list
   // String previousDepartureCountry = "";
   // String previousArrivalCountry = "";
@@ -108,40 +271,67 @@ class _OneWayTicketState extends State<OneWayTicket> {
                   children: [
                     Icon(Icons.flight_takeoff_rounded, color: Color(0xFFBFC2DF)),
                     TextButton(
-                      onPressed: () {
-                        showCountryPicker(
-                          context: context,
-                          countryListTheme: CountryListThemeData(
-                              inputDecoration: InputDecoration(
-                                  hintText: "Type your destination",
-                                  labelText: "Search")),
-                          onSelect: (Country value) {
-                            countryCode = value.name.toString();
-                            setState(() {});
-                          },
-                        );
-                      },
-                      child: Text(countryCode.toString()),
-                    ),
-                    const Gap(130),
+  onPressed: () {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200, // Set the desired height
+          child: ListView.builder(
+            itemCount: _allUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              final user = _allUsers[index];
+              return ListTile(
+                title: Text(user['name']),
+                onTap: () {
+                  // Handle selection of the city (user['name'])
+                  print('Selected city: ${user['name']}');
+                  setState(() {
+                    selectedCity1 = user['name']; // Assuming you have a variable named selectedCity
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  },
+  child: Text(selectedCity1.isNotEmpty ? selectedCity1 : "Select City"),
+),
+                    const Gap(100),
                     Icon(Icons.flight_land_rounded, color: Color(0xFFBFC2DF)),
-                    TextButton(
-                      onPressed: () {
-                        showCountryPicker(
-                          context: context,
-                          countryListTheme: CountryListThemeData(
-                              inputDecoration: InputDecoration(
-                                  hintText: "Type your destination",
-                                  labelText: "Search")),
-                                  
-                          onSelect: (Country value) {
-                            countryCode1 = value.name.toString();
-                            setState(() {});
-                          },
-                        );
-                      },
-                      child: Text(countryCode1.toString()),
-                    ),
+                     TextButton(
+  onPressed: () {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200, // Set the desired height
+          child: ListView.builder(
+            itemCount: _allUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              final user = _allUsers[index];
+              return ListTile(
+                title: Text(user['name']),
+                onTap: () {
+                  // Handle selection of the city (user['name'])
+                  print('Selected city: ${user['name']}');
+                  setState(() {
+                    selectedCity2 = user['name']; // Assuming you have a variable named selectedCity
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
+  },
+  child: Text(selectedCity2.isNotEmpty ? selectedCity2 : "Select City"),
+),
     //                   TextButton(
     //   onPressed: () {
     //     showDialog(
@@ -330,12 +520,12 @@ class _OneWayTicketState extends State<OneWayTicket> {
 
 void updateFlightList() {
     // Only update the flight list if both departure and arrival countries are selected
-    if (countryCode.isNotEmpty && countryCode1.isNotEmpty) {
+    if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
 
       // Trigger a rebuild to reflect the updated list
       setState(() {
-          flights = getFlights(countryCode, countryCode1);
-          print("Updating flights with departure: $countryCode, arrival: $countryCode1");
+          flights = getFlights(selectedCity1, selectedCity2);
+          print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
 
       });
     }
@@ -375,35 +565,3 @@ void updateFlightList() {
   }
 
 }
-
-
-  // void updateFlightList() {
-  //   // Simulate fetching flights based on selected countries
-  //   flights = getFlights(countryCode, countryCode1);
-
-  //   // Trigger a rebuild to reflect the updated list
-  //   setState(() {});
-  // }
-
-  // List<FlightModel> getFlights(d_country, a_country) {
-  //   // Replace this with your actual logic to fetch flights from your data source
-  //   // For simplicity, a hardcoded list is used in this example
-  //   return [
-  //     FlightModel(
-  //   id: "Rs. 10000", 
-  //   name: "Yeti Airlines", 
-  //   price: "1000/-",
-  //   d_country: "Australia",
-  //   a_country: "Andorra"
-  //   ),
-  //   FlightModel(
-  //   id: "Rs. 20000", 
-  //   name: "Buddha Air", 
-  //   price: "2000/-",
-  //   d_country: "Nepal",
-  //   a_country: "Australia"
-  //   ),
-  //     // Add more flights as needed
-  //   ];
-  // }
-

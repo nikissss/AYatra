@@ -128,7 +128,7 @@ import 'package:yatra1/utilis/hotellistdata.dart' as HotelListDataUtilis;
 class RoomBookingScreen extends StatefulWidget {
   final String hotelName;
  final String hotelTitle;
- const RoomBookingScreen({Key? key, required this.hotelName, required this.hotelTitle})
+ const RoomBookingScreen({Key? key,required this.hotelTitle, required this.hotelName})
       : super(key: key);
 
   @override

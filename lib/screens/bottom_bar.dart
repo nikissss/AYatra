@@ -230,13 +230,13 @@ void _onItemTapped(int index) {
       MaterialPageRoute(builder: (context) => SearchScreen()),
     );
   }
+  // if (index == 3) { // Check if the "Search" tab is tapped
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => MyTripsScreen(animationController: animationController,)),
+  //   );
+  // }
   if (index == 3) { // Check if the "Search" tab is tapped
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MyTripsScreen(animationController: animationController,)),
-    );
-  }
-  if (index == 4) { // Check if the "Search" tab is tapped
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProfileScreen(animationController: animationController,)),
@@ -258,7 +258,7 @@ void _onItemTapped(int index) {
       // TicketsPage(),
       // ProfilePage(),
       SearchScreen(),
-      MyTripsScreen(animationController: animationController),
+     // MyTripsScreen(animationController: animationController),
       ProfileScreen(animationController: animationController),
     ];
 
@@ -320,11 +320,11 @@ void _onItemTapped(int index) {
             activeIcon: Icon(FluentSystemIcons.ic_fluent_airplane_filled),
             label: "Flights",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentSystemIcons.ic_fluent_heart_regular),
-            activeIcon: Icon(FluentSystemIcons.ic_fluent_heart_filled),
-            label: "My Trips",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(FluentSystemIcons.ic_fluent_heart_regular),
+          //   activeIcon: Icon(FluentSystemIcons.ic_fluent_heart_filled),
+          //   label: "My Trips",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(FluentSystemIcons.ic_fluent_person_regular),
             activeIcon: Icon(FluentSystemIcons.ic_fluent_person_regular),

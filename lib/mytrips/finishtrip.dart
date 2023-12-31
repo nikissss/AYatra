@@ -112,6 +112,7 @@ class _FinishTripViewState extends State<FinishTripView> {
                     builder: (context) => RoomBookingScreen(
                       hotelTitle: hotelList[index].titleTxt,
                       hotelName: hotelList[index].titleTxt,
+                      
                     ),
                   ),
                 );

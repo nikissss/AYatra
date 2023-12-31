@@ -1,7 +1,7 @@
 // image_paths.dart
 
 class ImagePaths {
-  static const String room_1 = 'lib/assets/images/room_1.jpeg';
+  static const String room_1 = 'lib/assets/images/room_1.jpg';
   static const String room2 = 'lib/assets/images/room_2.webp';
   static const String room3 = 'lib/assets/images/room_3.jpeg';
   static const String room4 = 'lib/assets/images/room_3.jpeg';

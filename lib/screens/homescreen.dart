@@ -1,20 +1,14 @@
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yatra1/hoteldetail/roombookingscreen.dart';
-import 'package:yatra1/location/locationsearch.dart';
-import 'package:yatra1/location/search.dart';
-import 'package:yatra1/screens/hotelbookscreen.dart';
+import 'package:yatra1/screens/articles/aboutus.dart';
+import 'package:yatra1/screens/articles/articleone.dart';
+import 'package:yatra1/screens/articles/articletwo.dart';
 import 'package:yatra1/screens/hotelscreen.dart';
 import 'package:yatra1/screens/ticketview.dart';
 import 'package:yatra1/utilis/app_styles.dart';
 import 'package:yatra1/utilis/appinfo_list.dart';
+import 'package:yatra1/utilis/applayout.dart';
 
-
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget { 
   const HomeScreen({super.key});
@@ -29,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = AppLayout.getSize(context);
     return Scaffold(
       backgroundColor: Styles.bgColor,
       body: SingleChildScrollView(
@@ -38,16 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 45),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Good Morning', style: Styles.headLinestyle3),
+                          Text('Hello', style: Styles.headLinestyle3),
                           const SizedBox(height: 5),
-                          Text('Book Tickets', style: Styles.headLinestyle1),
+                          Text('Welcome to Yatra', style: Styles.headLinestyle1),
                         ],
                       ),
                        Container(
@@ -63,46 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       )
                      )
-                      // Expanded(
-                      //   child: InkWell(
-                      //     onTap: () {
-                      //       print("Search bar tapped");
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => const HotelHomeScreen(),
-                      //           // builder: (context) => Search(
-                      //           //   searchController: _searchController,
-                      //           //   dateController: _dateController,
-                      //           // ),
-                      //         ),
-                      //       );
-                      //     },
-                      //     child: Container(
-                      //       decoration: BoxDecoration(
-                      //         borderRadius: BorderRadius.circular(10),
-                      //         color: const Color(0xFFF4F6FD),
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             color: Colors.black.withOpacity(0.05),
-                      //             spreadRadius: 4,
-                      //             blurRadius: 10,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      //       child: TextFormField(
-                      //         decoration: const InputDecoration(
-                      //           hintText: 'Search your destination',
-                      //           prefixIcon: Icon(
-                      //             Icons.search, // Use the appropriate icon
-                      //             color: Color(0xFFBFC205),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 40),
@@ -110,28 +65,152 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Upcoming Flights",
+                        "ARTICLES",
                         style: Styles.headLinestyle2,
                       ),
-                      InkWell(
-                        onTap: () {
-                          print("you are tapped");
-                        },
-                        child: Text("View all", style: Styles.textstyle.copyWith(color: Styles.primaryColor)),
-                      ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     print("you are tapped");
+                      //   },
+                      //   child: Text("View all", style: Styles.textstyle.copyWith(color: Styles.primaryColor)),
+                      // ),
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 15),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: ticketList.map((singleTicket) => TicketView(ticket: singleTicket)).toList(),
+            // const SizedBox(height: 15),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   padding: const EdgeInsets.only(left: 20),
+            //   child: Row(
+            //     children: ticketList.map((singleTicket) => TicketView(ticket: singleTicket)).toList(),
+            //   ),
+            // ),
+            const SizedBox(height: 15,),
+             Row(
+              
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Padding(padding: EdgeInsets.only(left:10)),
+              Container(
+                height: 350,
+                width: size.width * 0.51,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                decoration: BoxDecoration(
+                    color: const Color.fromRGBO(224, 204, 151, 1),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade200,
+                        blurRadius: 1,
+                        spreadRadius: 1,
+                      )
+                    ]),
+                child: Column(children: [
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: const DecorationImage(
+                            image: AssetImage("lib/assets/images/engfeather.png"))),
+                  ),
+                  const SizedBox(height: 10,),
+                  GestureDetector(
+                    child: Text("A Traveller Guide To Yatra App : About Us",
+                        style: Styles.headLinestyle2),
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => AboutUs()));
+                    },
+                  )
+                ]),
               ),
-            ),
+              Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        width: size.width * 0.48,
+                        height: 166,
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(77, 137, 99, 1),
+                            borderRadius: BorderRadius.circular(18)),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                                child: Text(
+                                  "8 Things To   \n Do In Nepal",
+                                  style: Styles.headLinestyle2.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ArticleOne()));
+                                }),
+                            const SizedBox(height: 10),
+                            Text(
+                                "The global trend is shifting towards a cashless ..read more",
+                                style: Styles.headLinestyle2.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                    fontSize: 13)),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        right: -45,
+                        top: -40,
+                        child: Container(
+                          padding: EdgeInsets.all(30),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border:
+                                Border.all(width: 18, color: Color(0xFF189999)),
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                  Container(
+                    width: size.width * 0.48,
+                    height: 166,
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: Color.fromRGBO(159, 2, 81, 1)),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                            child: Text(
+                              "From base camp to summit: The thrills",
+                              style: Styles.headLinestyle2.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ArticleTwo()));
+                            }),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+
             const SizedBox(height: 15),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -142,12 +221,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Hotels",
                     style: Styles.headLinestyle2,
                   ),
-                  InkWell(
-                    onTap: () {
-                      print("you are tapped");
-                    },
-                    child: Text("View all", style: Styles.textstyle.copyWith(color: Styles.primaryColor)),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     print("you are tapped");
+                  //   },
+                  //   child: Text("View all", style: Styles.textstyle.copyWith(color: Styles.primaryColor)),
+                  // ),
                 ],
               ),
             ),
@@ -170,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RoomBookingScreen(hotelTitle: '', hotelName: ''),
+        builder: (context) => RoomBookingScreen(hotelTitle: '', hotelName: '',),
       ),
     );
         },
