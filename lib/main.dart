@@ -1,14 +1,16 @@
 
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:yatra1/Dashboard/AddHotel.dart';
 import 'package:yatra1/Profile/profile_screen.dart';
 import 'package:yatra1/providers/theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yatra1/screens/bottom_bar.dart';
-import 'package:yatra1/screens/homescreen.dart';
+
 import 'package:yatra1/screens/hotelbookscreen.dart';
 import 'package:yatra1/screens/hotellistview.dart';
 import 'package:yatra1/mytrips/mytrips.dart';
+import 'package:yatra1/screens/hotelscreen.dart';
 import 'package:yatra1/utilis/app_styles.dart';
 import 'package:yatra1/utilis/hotel_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +21,7 @@ import 'package:yatra1/views/login_page.dart';
 import 'package:yatra1/views/registerpage.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
-
+import 'package:yatra1/Dashboard/dashhomescreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +73,7 @@ class MyApp extends StatelessWidget {
 theme: ThemeData( 
         primaryColor: primary,
       ),
+      //  home:HomeScreen(),
       home:  AnimatedSplashScreen(
         splash:  Transform.scale(
     scale: 3.0, // Adjust the scale factor as needed

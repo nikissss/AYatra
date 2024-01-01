@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yatra1/utilis/hotellistmodel.dart';
 import 'package:yatra1/utilis/hotel_theme.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-
 import 'package:flutter/material.dart';
 import 'package:yatra1/utilis/hotellistmodel.dart';
 import 'package:yatra1/utilis/hotel_theme.dart';
@@ -22,6 +20,8 @@ class HotelListView extends StatelessWidget {
   final Function? callback;
   final AnimationController? animationController;
   final Animation<double>? animation;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class HotelListView extends StatelessWidget {
                         children: <Widget>[
                           AspectRatio(
                             aspectRatio: 2,
-                            child: Image.asset(
+                            child: Image.network(
                               hotelData!.imagePath,
                               fit: BoxFit.cover,
                             ),

@@ -1,28 +1,40 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yatra1/components/mybutton.dart';
 import 'package:yatra1/components/mytextfield.dart';
 import 'package:yatra1/components/squaretile.dart';
 import 'package:yatra1/screens/bottom_bar.dart';
-import 'package:yatra1/screens/homescreen.dart';
+import 'package:yatra1/Dashboard/dashhomescreen.dart';
 import 'package:yatra1/services/auths/auth_service.dart';
+import 'package:yatra1/views/forget_passwordpage.dart';
 import 'package:yatra1/views/login_page.dart';
+import 'package:yatra1/views/registerpage.dart';
 
-class RegisterPage extends StatefulWidget {
+
+class AdminLoginpage extends StatefulWidget {
 
   final Function()? onTap;
   final BuildContext context;
- const RegisterPage({super.key, required this.onTap, required this.context});
- 
+const  AdminLoginpage({super.key, required this.onTap, required this.context});
 
   //text editing controllers
  static TextEditingController emailController = TextEditingController();
 static TextEditingController passwordController = TextEditingController();
-static TextEditingController confirmpasswordController = TextEditingController();
+
+void navigateToHomePage(BuildContext context) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        
+        return HomeScreen();
+      },
+    ),
+  );
+}
+
 //sign user in method
-void signUserUp() async{
+void signUserIn(BuildContext context)async{
 //show loading circle
 
 showDialog(
@@ -34,21 +46,16 @@ showDialog(
   },
 );
 
- //try creating the user
-  try{
-    //check if password is confirmed 
-    if(passwordController.text == confirmpasswordController.text){
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+ //try sign in
+  try{await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: emailController.text, 
     password: passwordController.text,
     );
-    }else {
-      //show error message password dont match
-      showErrorMessage("Passwords don't match ");
-
-    }
         //pop the loading circle
     Navigator.pop(context);
+
+    // Navigate to the home page on successful sign-in
+    navigateToHomePage(context);
 
   }on FirebaseAuthException catch (e){
         //pop the loading circle
@@ -57,43 +64,8 @@ showDialog(
 
    showErrorMessage(e.code);
   }
-
-    navigateToHomePage(context);
 }
 
-void loginpage ()async{
-//show loading circle
-showDialog(
-  context: context, // Use context here
-  builder: (context) {
-    return const  Center(
-      child: CircularProgressIndicator(),
-    );
-  },
-);
-    navigateToLoginPage(context);
-}
-// Method to navigate to the home page
-void navigateToHomePage(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return BottomBar();
-        },
-      ),
-    );
-  }
-  void navigateToLoginPage(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return Loginpage(onTap: () {  },context: context,);
-        },
-      ),
-    );
-  }
 //error messsage to user
 void showErrorMessage(String message){
   showDialog(
@@ -123,15 +95,18 @@ void wrongPasswordMessage(){
     },
     );
 }
-
-  @override
-  State<StatefulWidget> createState() {
- return _RegisterPageState();
-  }
- 
+void registeredusermessage(){
+  showAboutDialog(
+    context: context,
+  
+  );
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+  @override
+  State<AdminLoginpage> createState() => _AdminLoginpageState();
+}
+
+class _AdminLoginpageState extends State<AdminLoginpage> {
   get signUserIn => null;
 
   @override
@@ -148,15 +123,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                  const SizedBox(height:50),
                 //logo
-                const  Icon(
-                  Icons.lock,
-                size:50,
-                ),
-                const SizedBox(height:50),
-                //Create your Account!
-                const Text("Let's Create an Account!",
+                // const  Icon(
+                //   Icons.lock,
+                // size:100,
+                // ),
+                Image.asset("lib/assets/images/logo.png"),
+                const SizedBox(height:5),
+                //welcome back,you've been missed!
+                const Text("Book your Yatra here",
                 style:TextStyle(
-                  color: Color(0xFF616161), // Replace with the appropriate color code
+                  color: Colors.black, // Replace with the appropriate color code
                 fontSize: 16,
                 ),
                 ),
@@ -166,8 +142,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 //email textfield
                 
                 mytextfield(
-                  controller:RegisterPage.emailController,
-                  hintText: 'email',
+                  controller:AdminLoginpage.emailController,
+                  hintText: 'Your Yatra Admin email',
                   obscureText:false ,
                 
                 ),
@@ -176,18 +152,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 //password textfield
                 
                 mytextfield(
-                  controller:RegisterPage.passwordController,
+                  controller:AdminLoginpage.passwordController,
                   obscureText: true,
-                  hintText: 'Password',
-                ),
-                    const SizedBox(height:10),
-                
-                //confirm password textfield
-                
-                mytextfield(
-                  controller:RegisterPage.confirmpasswordController,
-                  obscureText: true,
-                  hintText: 'Confirm Password',
+                  hintText: 'Admin Password',
                 ),
                 const SizedBox(height:10),
                 
@@ -197,19 +164,36 @@ class _RegisterPageState extends State<RegisterPage> {
                   child:   Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-              Text(
-                      'Forget Password?',
-                      style:TextStyle(color:Colors.grey[600]),
+              GestureDetector(
+                onTap: (){
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context){
+            return const ForgotPasswordPage();
+                  },
+                  ),
+                   ) ;
+                },
+                child: const Text(
+                        'Forgot Password?',
+                        style:
+                        TextStyle(
+                    color:Colors.blue,
+                    fontWeight: FontWeight.bold
                     ),
+                      ),
+              ),
                   ],
                   ),
                 ),
                 const SizedBox(height:10),
                 //signin button
-                MyButton(
-                  text:"SignUp",
-                  onTap:widget.signUserUp,
-                ),
+               MyButton(
+                text:'Sign In',
+              onTap: () => widget.signUserIn(context),
+            ),
+            
                 const SizedBox(height:50),
                 //or continue with
                 
@@ -227,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal:10.0),
                   child: Text(
                     'OR',
-                    style:TextStyle(color:Colors.grey[700])
+                    style:TextStyle(color:Colors.black)
                     ),
                   ),
                   Expanded(
@@ -241,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height:50),
               //   //google + apple sign in button
-              // Row(
+              //  Row(
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     children: [
               //     //google button
@@ -250,34 +234,42 @@ class _RegisterPageState extends State<RegisterPage> {
               //     imagePath: 'lib/images/g2.png'),
               //   const SizedBox(width:25),
               //   //apple button
-              //   // SquareTile(
-              //   //   onTap: () {},
-              //   //   imagePath: 'lib/img/a4.png')
+              //   SquareTile(
+              //     onTap: () {},
+              //     imagePath: 'lib/images/a4.png')
               //   ],
               //   ),
-                const SizedBox(height:50),
+              //   const SizedBox(height:50),
                 
                 //not a memeber?register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                Text('Already have an account!',
+                Text('Not an Admin member?',
                 style:TextStyle(
-                  color:Colors.grey[700]
+                  color:Colors.black
                 )),
                 const SizedBox(width:4),
                  GestureDetector(
-                  onTap:()=>widget.loginpage(),
-                    
-                
+               onTap: () {
+                        // Navigate to the register page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Loginpage(onTap: widget.onTap, context: context),
+                          ),
+                        );
+                      },
                    child: const Text(
-                    'Login now',
+                    'Log In',
                     style:TextStyle(
                     color:Colors.blue,
                     fontWeight: FontWeight.bold
-                    ),),
-                 ),
-                ],)
+                    ),
+                    ),
+                 )
+                ],),
                       ],
                       ),
             )
