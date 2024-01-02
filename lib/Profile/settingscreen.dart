@@ -3,26 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:yatra1/Profile/countryscreen.dart';
 import 'package:yatra1/Profile/currencyscreen.dart';
-import 'package:yatra1/Profile/helpcenter.dart';
-import 'package:yatra1/modules/splash/splashscreen.dart';
+// import 'package:yatra1/Profile/helpcenter.dart';
+// import 'package:yatra1/modules/splash/splashscreen.dart';
 import 'package:yatra1/providers/theme_provider.dart';
 import 'package:yatra1/utils/enum.dart';
-import 'package:yatra1/utils/helper.dart';
-import 'package:yatra1/utils/localfiles.dart';
+// import 'package:yatra1/utils/helper.dart';
+// import 'package:yatra1/utils/localfiles.dart';
 import 'package:yatra1/utils/text_styles.dart';
 import 'package:yatra1/utils/themes.dart';
 import 'package:provider/provider.dart';
 import 'package:yatra1/utilis/settinglist.dart';
 import 'package:yatra1/views/login_page.dart';
-import 'package:yatra1/widgets/bottomtopmoveanimation.dart';
 import 'package:yatra1/widgets/commonappbarview.dart';
 import 'package:yatra1/widgets/commoncard.dart';
 import 'package:yatra1/widgets/removefocuse.dart';
-import 'package:yatra1/utils/helper.dart';
 
-import 'countryscreen.dart';
-import 'currencyscreen.dart';
+// import 'countryscreen.dart';
+// import 'currencyscreen.dart';
+// void main() {
+//   runApp(MyApp());
+// }
 
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false, // Set this to false to hide the debug banner
+//       home: SettingsScreen(),
+//     );
+//   }
+// }
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();

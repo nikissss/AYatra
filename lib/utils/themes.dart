@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yatra1/utils/enum.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yatra1/providers/theme_provider.dart';
-import 'package:yatra1/motelapp.dart';
+// import 'package:yatra1/motelapp.dart';
 import 'package:provider/provider.dart';
 
 class AppTheme {

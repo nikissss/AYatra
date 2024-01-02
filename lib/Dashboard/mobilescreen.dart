@@ -286,6 +286,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:yatra1/Dashboard/drawermobile.dart';
+import 'package:yatra1/views/login_page.dart';
 
 class MobileScreen extends StatelessWidget {
   final User? user;
@@ -342,37 +343,69 @@ class MobileScreen extends StatelessWidget {
     return flightBookingsCount;
   }
 
-  void _logout(BuildContext context) async {
-    bool isOk = await showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Are you sure?"),
-          content: const Text("You want to Sign Out."),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false); // User pressed No
-              },
-              child: const Text("No"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true); // User pressed Yes
-              },
-              child: const Text("Yes"),
-            ),
-          ],
-        );
-      },
-    );
+  // void _logout(BuildContext context) async {
+  //   bool isOk = await showDialog(
+  //     context: context,
+  //     barrierDismissible: true,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text("Are you sure?"),
+  //         content: const Text("You want to Sign Out."),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(false); // User pressed No
+  //             },
+  //             child: const Text("No"),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(true); // User pressed Yes
+  //             },
+  //             child: const Text("Yes"),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
 
-    if (isOk == true) {
-      await FirebaseAuth.instance.signOut();
-      Navigator.of(context).pop(); // Close the current screen
-    }
+  //   if (isOk == true) {
+  //     await FirebaseAuth.instance.signOut();
+  //     Navigator.of(context).pop(); // Close the current screen
+  //   }
+  // }
+void _logout(BuildContext context) async {
+  bool isOk = await showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Are you sure?"),
+        content: const Text("You want to Sign Out."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false); // User pressed No
+            },
+            child: const Text("No"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true); // User pressed Yes
+            },
+            child: const Text("Yes"),
+          ),
+        ],
+      );
+    });
+
+  if (isOk == true) {
+    await FirebaseAuth.instance.signOut();
+    
+    // Navigate to the login page and remove all existing routes from the stack
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Loginpage(onTap: () {  }, context: context,)));
   }
+}
 
 
   @override
@@ -383,6 +416,7 @@ class MobileScreen extends StatelessWidget {
           key: scaffoldKey,
           drawer: const DrawerMobile(user: null,),
           appBar: AppBar(
+            backgroundColor: Colors.blueGrey,
             leading: GestureDetector(
               onTap: () {
                 scaffoldKey.currentState?.openDrawer();
@@ -409,7 +443,7 @@ class MobileScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                _upgradeToProWidget(),
+                //_upgradeToProWidget(),
                 FutureBuilder(
                   // Fetch data from Firestore here
                   future: fetchBookingsCount(),
@@ -506,26 +540,26 @@ class MobileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: _singleItemQuickStats(
-                  title: "Total Bookings",
+                  title: "Total Hotel Bookings",
                   value: data?['totalBookings'].toString() ?? '0',
                   width: sizingInformation.screenSize.width / 2.6,
                   icon: Icons.book_online,
                   iconColor: Colors.black,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _singleItemQuickStats(
-                  title: "Total Active Users",
-                  // Fetch the count of logged-in users here
-                  value:
-                      data?['totalAuthenticatedUsers'].toString() ?? '0',
-                  icon: Icons.verified_user_rounded,
-                  iconColor: Colors.black,
-                  width: sizingInformation.screenSize.width / 2.6,
-                  textColor: Colors.red,
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: _singleItemQuickStats(
+              //     title: "Total Active Users",
+              //     // Fetch the count of logged-in users here
+              //     value:
+              //         data?['totalAuthenticatedUsers'].toString() ?? '0',
+              //     icon: Icons.verified_user_rounded,
+              //     iconColor: Colors.black,
+              //     width: sizingInformation.screenSize.width / 2.6,
+              //     textColor: Colors.red,
+              //   ),
+              // ),
             ],
           ),
           Row(
@@ -534,7 +568,7 @@ class MobileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: _singleItemQuickStats(
-                  title: "My Bookings",
+                  title: "Total Flight Bookings",
                   value: data?['myBookings'].toString() ?? '0',
                   width: sizingInformation.screenSize.width / 2.6,
                   icon: Icons.flight,

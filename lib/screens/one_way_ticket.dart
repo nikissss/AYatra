@@ -565,6 +565,7 @@
 //   }
 
 // }
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -599,7 +600,7 @@ class OneWayTicket extends StatefulWidget {
     {"id":7, "name":"Chitwan"},
     {"id":8, "name":"Mustang"},
   ];
-     List<FlightModel> flights = []; 
+  //List<FlightModel> flights = []; 
   String selectedCity1 = '';
   String selectedCity2 = '';
 class _OneWayTicketState extends State<OneWayTicket> {
@@ -678,8 +679,8 @@ Future<void> sendFlightDetailsEmail(
         // Store flight booking information in Cloud Firestore
         DocumentReference bookingReference = await FirebaseFirestore.instance.collection('flight_bookings').add({
           'userEmail': userEmail,
-          'departureCountry': countryCode,
-          'arrivalCountry': countryCode1,
+          'departureCity': selectedCity1,
+          'arrivalCity': selectedCity2,
           'departureDate': _departureDate,
           'adults': _selectedAdultValue,
           'children': _selectedChildValue,
@@ -689,8 +690,8 @@ Future<void> sendFlightDetailsEmail(
         // Send flight booking confirmation email
         await sendFlightBookingConfirmationEmail(
           userEmail,
-          countryCode,
-          countryCode1,
+          selectedCity1,
+          selectedCity2,
           _departureDate,
           _selectedAdultValue,
           _selectedChildValue,
@@ -762,8 +763,8 @@ void onSuccess(PaymentSuccessModel success) async {
               // Call the sendFlightDetailsEmail function with the payment reference code
               sendFlightDetailsEmail(
               userEmailAddress,  // Pass the user email address here
-                countryCode,  // Pass the departure country code here
-                countryCode1,  // Pass the arrival country code here
+                selectedCity1,  // Pass the departure country code here
+                selectedCity2,  // Pass the arrival country code here
                 _departureDate,
                 _selectedAdultValue,
                 _selectedChildValue,
@@ -780,7 +781,7 @@ void onSuccess(PaymentSuccessModel success) async {
   void updateSelectedOptions() {
     setState(() {
       selectedOptions =
-          "From: $countryCode\nTo: $countryCode1\nDeparture Date: ${DateFormat('yyyy-MM-dd').format(_departureDate)}\nAdults: $_selectedAdultValue\nChildren: $_selectedChildValue";
+          "From: $selectedCity1\nTo: $selectedCity2\nDeparture Date: ${DateFormat('yyyy-MM-dd').format(_departureDate)}\nAdults: $_selectedAdultValue\nChildren: $_selectedChildValue";
     });
   }
  // Initialize an empty list
@@ -788,6 +789,7 @@ void onSuccess(PaymentSuccessModel success) async {
   // String previousArrivalCountry = "";
   @override
   Widget build(BuildContext context) {
+      //List<FlightModel> flights = []; 
     final size = AppLayout.getSize(context);
     return Scaffold(
       appBar: AppBar(
@@ -899,38 +901,6 @@ void onSuccess(PaymentSuccessModel success) async {
   },
   child: Text(selectedCity2.isNotEmpty ? selectedCity2 : "Select City"),
 ),
-    //                   TextButton(
-    //   onPressed: () {
-    //     showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return AlertDialog(
-    //           content: Container(
-    //             width: double.maxFinite,
-    //             child: CSCPicker(
-    //               onCountryChanged: (country){},
-    //               onStateChanged: (state){},
-    //               onCityChanged: (city){},
-    //               // onCountryChanged: (value) {
-    //               //   // Handle country change if needed
-    //               // },
-    //               // onStateChanged: (value) {
-    //               //   // Handle state change if needed
-    //               // },
-    //               // onCityChanged: (value) {
-    //               //   setState(() {
-    //               //     countryCode1 = value ?? '';
-    //               //   });
-    //               //   Navigator.pop(context); // Close the dialog
-    //               // },
-    //             ),
-    //           ),
-    //         );
-    //       },
-    //     );
-    //   },
-    //   child: Text(countryCode1.isNotEmpty ? countryCode1 : "Select City"),
-    // )
                   ],
                 ),
               ],
@@ -1058,24 +1028,50 @@ void onSuccess(PaymentSuccessModel success) async {
           ),
           const Gap(15),
           Container(
-            child: ElevatedButton(
-              onPressed: () {
-                updateSelectedOptions();
+            // child: ElevatedButton(
+            //   onPressed: () {
+            //     updateSelectedOptions();
                 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ListFlightScreen(
-                      selectedOptions: selectedOptions,
-                    ),
-                  ),
-                );
-                updateFlightList();
-              },
-              child: Container(
-                child: Text("Find Ticket"),
-              ),
-            ),
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => ListFlightScreen(
+            //           selectedOptions: selectedOptions,
+            //         ),
+            //       ),
+            //     );
+            //     updateFlightList();
+            //   },
+            //   child: Container(
+            //     child: Text("Find Ticket"),
+            //   ),
+            // ),
+            child: ElevatedButton(
+  onPressed: () {
+    //updateSelectedOptions();
+    // updateFlightList(selectedCity1, selectedCity2);
+    // Check if both departure and arrival cities are selected
+    if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
+      setState(() {
+        updateFlightList(selectedCity1, selectedCity2);
+      });
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ListFlightScreen(
+            selectedOptions: selectedOptions,
+          ),
+        ),
+      );
+    } else {
+      print("EMPTY CITIES");// Show a message or handle the case where either departure or arrival city is not selected
+    }
+  },
+  child: Container(
+    child: Text("Find Ticket"),
+  ),
+),
           ),
           const Gap(10),
           Text(selectedOptions, style: Styles.textstyle),
@@ -1085,25 +1081,46 @@ void onSuccess(PaymentSuccessModel success) async {
   }
 
 
-void updateFlightList() {
-    // Only update the flight list if both departure and arrival countries are selected
-    if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
+// void updateFlightList(String selectedCity1, String selectedCity2) {
+//     // Only update the flight list if both departure and arrival countries are selected
+//     // if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
 
-      // Trigger a rebuild to reflect the updated list
-      setState(() {
-          flights = getFlights(selectedCity1, selectedCity2);
-          print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
+//       // Trigger a rebuild to reflect the updated list
+//       setState(() {
+//           flights = getFlights(selectedCity1, selectedCity2);
+//           print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
 
-      });
-    }
+//       });
+//     //}
+//   }
+
+// void updateFlightList(String selectedCity1, String selectedCity2) {
+//   if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
+//     flights = getFlights(selectedCity1, selectedCity2);
+//     print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
+//   }
+// }
+void updateFlightList(String selectedCity1, String selectedCity2) {
+  print("I am called");
+  //flights = [];
+  // Only update the flight list if both departure and arrival cities are selected
+  if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
+    print("Updating flights with departure: $selectedCity1, arrival: $selectedCity2");
+    flights = getFlights(selectedCity1, selectedCity2);
+    print("Updated flights: $flights");
+  } else {
+    print("EMPTY CITIES");
   }
+}
 
 
-  List<FlightModel> getFlights(String departureCountry, String arrivalCountry) {
+
+  List<FlightModel> getFlights(String selectedcity1, String selectedCity2) {
     // Filter flights based on selected departure and arrival countries
-    print("equal cha ki chaina check gareko");
+    print("getFlights function called");
+    print("Departure City: $selectedcity1, Arrival City: $selectedCity2");
     return flights.where((flight) =>
-        flight.d_country == departureCountry && flight.a_country == arrivalCountry).toList();
+        flight.d_country == selectedcity1 && flight.a_country == selectedCity2).toList();
   }
   @override
   void didChangeDependencies() {
@@ -1120,3 +1137,25 @@ void updateFlightList() {
   }
 
 }
+
+  // List<FlightModel> getFlights(d_country, a_country) {
+  //   // Replace this with your actual logic to fetch flights from your data source
+  //   // For simplicity, a hardcoded list is used in this example
+  //   return [
+  //     FlightModel(
+  //   id: "Rs. 10000", 
+  //   name: "Yeti Airlines", 
+  //   price: "1000/-",
+  //   d_country: "Kathmandu",
+  //   a_country: "Pokhara"
+  //   ),
+  //   FlightModel(
+  //   id: "Rs. 20000", 
+  //   name: "Buddha Air", 
+  //   price: "2000/-",
+  //   d_country: "Nepal",
+  //   a_country: "Australia"
+  //   ),
+  //     // Add more flights as needed
+  //   ];
+  // }

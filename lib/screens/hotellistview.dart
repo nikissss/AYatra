@@ -94,7 +94,7 @@ class HotelListView extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  '${hotelData!.dist.toStringAsFixed(1)} km to city',
+                                                  '${hotelData!.dist} km to city',
                                                   overflow: TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                     fontSize: 14,
@@ -142,24 +142,24 @@ class HotelListView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 16, top: 8),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          'Rs. ${hotelData!.perNight}',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                        ),
-                                        Text(
-                                          '/perNight',
-                                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                        )
-                                      ],
-                                    ),
-                                  )
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(right: 16, top: 8),
+                                  //   child: Column(
+                                  //     mainAxisAlignment: MainAxisAlignment.center,
+                                  //     crossAxisAlignment: CrossAxisAlignment.end,
+                                  //     children: [
+                                  //       Text(
+                                  //         'Rs. ${hotelData!.perNight}',
+                                  //         textAlign: TextAlign.left,
+                                  //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                  //       ),
+                                  //       Text(
+                                  //         '/perNight',
+                                  //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             ),

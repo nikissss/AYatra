@@ -138,7 +138,7 @@ child: Row(
 mainAxisAlignment: MainAxisAlignment.center,
 children: [
 Text(
-" Hey ${currentUser?.displayName ?? 'Guest'}!",
+" Hey ${currentUser?.displayName ??''}!",
 style: TextStyle(fontSize: 18),
 ),
 ],
@@ -188,7 +188,7 @@ _singleButton(icon: Icons.settings, title: "Settings"),
 const Divider(
 thickness: 0.50,
 ),
-_singleButton(icon: Icons.exit_to_app, title: "Exit"),
+
 ],
 ),
 );

@@ -33,26 +33,26 @@ class SettingsListData {
     //   isSelected: false,
     //   iconData: FontAwesomeIcons.lock,
     // ),
-    SettingsListData(
-      titleTxt: 'Invite friend',
-      isSelected: false,
-      iconData: FontAwesomeIcons.userFriends,
-    ),
-    SettingsListData(
-      titleTxt: 'Credit coupons',
-      isSelected: false,
-      iconData: FontAwesomeIcons.gift,
-    ),
+    // SettingsListData(
+    //   titleTxt: 'Invite friend',
+    //   isSelected: false,
+    //   iconData: FontAwesomeIcons.userFriends,
+    // ),
+    // SettingsListData(
+    //   titleTxt: 'Credit coupons',
+    //   isSelected: false,
+    //   iconData: FontAwesomeIcons.gift,
+    // ),
     SettingsListData(
       titleTxt: 'Help Center',
       isSelected: false,
       iconData: FontAwesomeIcons.infoCircle,
     ),
-    SettingsListData(
-      titleTxt: 'Payments',
-      isSelected: false,
-      iconData: FontAwesomeIcons.wallet,
-    ),
+    // SettingsListData(
+    //   titleTxt: 'Payments',
+    //   isSelected: false,
+    //   iconData: FontAwesomeIcons.wallet,
+    // ),
     SettingsListData(
       titleTxt: 'Settings',
       isSelected: false,

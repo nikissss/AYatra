@@ -5,13 +5,13 @@ List<FlightModel> flights = [
     id: "Rs. 10000", 
     name: "Yeti Airlines", 
     price: "1000/-",
-    d_country: "Kathmadu",
+    d_country: "Kathmandu",
     a_country: "Pokhara"
     ),
     FlightModel(
     id: "Rs. 20000", 
     name: "Buddha Air", 
-    price: "20000/-",
+    price: "2000/-",
     d_country: "Surkhet",
     a_country: "Biratnagar"
     ),

@@ -793,7 +793,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      '5 hotels found',
+                      'Hotels found',
                       style: TextStyle(
                         color:Colors.black,
                         fontWeight: FontWeight.w700,
@@ -1173,7 +1173,7 @@ height: AppBar().preferredSize.height!,
                     onTap: () {},
                     child: const Padding(
                       padding: EdgeInsets.all(8),
-                      child: Icon(Icons.favorite_border),
+                     // child: Icon(Icons.favorite_border),
                     ),
                   ),
                 ),
@@ -1186,7 +1186,7 @@ height: AppBar().preferredSize.height!,
                     onTap: () {},
                     child: const Padding(
                       padding: EdgeInsets.all(8),
-                      child: Icon(Icons.location_on_rounded),
+                      //child: Icon(Icons.location_on_rounded),
                     ),
                   ),
                 ),

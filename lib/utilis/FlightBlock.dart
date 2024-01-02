@@ -1,4 +1,11 @@
+//import 'dart:js';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:yatra1/screens/payment.dart';
 import 'package:yatra1/utilis/flight_model.dart';
 
@@ -31,6 +38,8 @@ class FlightBlock extends StatelessWidget {
             )
             ],
           ),
+
+
           RichText(text: TextSpan(
             children: [
               const WidgetSpan(
@@ -103,3 +112,4 @@ class FlightBlock extends StatelessWidget {
     );
   }
 }
+

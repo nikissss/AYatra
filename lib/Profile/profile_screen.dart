@@ -291,7 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
 
                           switch (index) {
-                            case 4:
+                            case 1:
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -299,7 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               );
                               break;
-                            case 2:
+                            case 0:
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -307,14 +307,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               );
                               break;
-                            case 0:
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => InviteFriend(),
-                                ),
-                              );
-                              break;
+                            // case 0:
+                            //   Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => InviteFriend(),
+                            //     ),
+                            //   );
+                            //   break;
                           }
                         },
                         child: Column(

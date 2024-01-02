@@ -567,7 +567,9 @@
 //     updateFlightList();
 //   }
 // }
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -603,6 +605,95 @@ class _SearchScreenState extends State<SearchScreen> {
   //create datetime variable
   DateTime _departureDate = DateTime.now();
   DateTime _arrivalDate = DateTime.now();
+  //firebase
+    Future<void> bookFlight(String paymentReference) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      String? userEmail = user?.email;
+
+      if (userEmail != null) {
+        // Store flight booking information in Cloud Firestore
+        DocumentReference bookingReference = await FirebaseFirestore.instance.collection('flight_bookings').add({
+          'userEmail': userEmail,
+          'departureCity': selectedCity1,
+          'arrivalCity': selectedCity2,
+          'departureDate': _departureDate,
+          'adults': _selectedAdultValue,
+          'children': _selectedChildValue,
+          'paymentReference': paymentReference,
+        });
+
+        // // Send flight booking confirmation email
+        // await sendFlightBookingConfirmationEmail(
+        //   userEmail,
+        //   selectedCity1,
+        //   selectedCity2,
+        //   _departureDate,
+        //   _selectedAdultValue,
+        //   _selectedChildValue,
+        //   paymentReference,
+        // );
+
+        print('Flight booking successful!');
+        // Consider showing a confirmation message or navigating to another screen.
+
+        // Optionally, you can get the booking ID from Firestore and use it as needed
+        // String bookingId = bookingReference.id;
+        // print('Booking ID: $bookingId');
+      } else {
+        print('User not logged in or email is null.');
+      }
+    } catch (e) {
+      print('Error booking flight: $e');
+    }
+  }
+
+//storing flight
+ Future<void>storeBookedFlight() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('flight_bookings').add({
+          'userId': user.uid,
+          'departureCity': selectedCity1,
+          'arrivalCity': selectedCity2,
+          'departureDate': _departureDate,
+          'arrivalDate': _arrivalDate,
+          'adults': _selectedAdultValue,
+          'children': _selectedChildValue,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      }
+    } catch (e) {
+      // Handle error
+      print('Error storing booked flight: $e');
+    }
+  }
+
+  //button
+   void _onFindTicketButtonPressed() async {
+    updateSelectedOptions();
+
+    // Check if both departure and arrival cities are selected
+    if (selectedCity1.isNotEmpty && selectedCity2.isNotEmpty) {
+      // Store booked flight in Firestore
+      await storeBookedFlight();
+      updateFlightList();
+      // Send confirmation email
+      //sendConfirmationEmail();
+
+      // Navigate to the list flight screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ListFlightScreen(selectedOptions: selectedOptions),
+        ),
+      );
+    } else {
+      // Show an error message or handle the case where either departure or arrival cities are not selected
+    }
+  }
+
   
   //show date picker method
 void _showDatePicker(){
@@ -637,10 +728,13 @@ String selectedOptions = "";
 late String d_country;
   late String a_country;
 
+
+
+
 void updateSelectedOptions() {
     setState(() {
       selectedOptions =
-          "From: $countryCode\nTo: $countryCode1\nDeparture Date: ${DateFormat('yyyy-MM-dd').format(_departureDate)}\n Arrival Date: ${DateFormat('yyyy-MM-dd').format(_arrivalDate)}\nAdults: $_selectedAdultValue\nChildren: $_selectedChildValue";
+          "From: $selectedCity1\nTo: $selectedCity2\nDeparture Date: ${DateFormat('yyyy-MM-dd').format(_departureDate)}\n Arrival Date: ${DateFormat('yyyy-MM-dd').format(_arrivalDate)}\nAdults: $_selectedAdultValue\nChildren: $_selectedChildValue";
     });
   }
   @override
@@ -947,22 +1041,28 @@ void updateSelectedOptions() {
           //         style: Styles.textStyle.copyWith(color: Colors.white,),
           //       ),
           // )
-          child: ElevatedButton(
-            onPressed: () 
-            {
-              updateSelectedOptions();
-            Navigator.push(
-            context,
-             MaterialPageRoute(
-             builder: (context) => ListFlightScreen(selectedOptions: selectedOptions),
-             ),
-              );
-              updateFlightList();
-            }, 
+          // child: ElevatedButton(
+          //   onPressed: () 
+          //   {
+          //     //updateSelectedOptions();
+          //   Navigator.push(
+          //   context,
+          //    MaterialPageRoute(
+          //    builder: (context) => ListFlightScreen(selectedOptions: selectedOptions),
+          //    ),
+          //     );
+          //     updateFlightList();
+          //   }, 
+          //   child: Container(
+          //     child: Text("Find Ticket"),
+          //   ),
+          //   ),
+           child: ElevatedButton(
+            onPressed: () => _onFindTicketButtonPressed(),
             child: Container(
               child: Text("Find Ticket"),
             ),
-            ),
+          ),
         ),
         const Gap(10),
           Text(selectedOptions, style: Styles.headLinestyle1.copyWith(fontSize: 20),),

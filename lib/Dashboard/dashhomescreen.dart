@@ -48,6 +48,20 @@ import 'package:yatra1/Dashboard/mobilescreen.dart';
 import 'package:yatra1/Dashboard/tabletscreen.dart';
 import 'package:yatra1/views/login_page.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // Set this to false to hide the debug banner
+      home: HomeScreen(),
+    );
+  }
+}
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -57,11 +71,9 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('YATRA'),
+          backgroundColor: Colors.blueGrey,
           actions: [
-            IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () => _gotoSplashScreen(context),
-            ),
+           
           ],
         ),
         body: ResponsiveBuilder(
